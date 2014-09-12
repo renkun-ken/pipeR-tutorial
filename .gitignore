@@ -3,5 +3,6 @@ _book/
 .rmdbuild
 *.DS_Store
 log/
+.RData
 .Rhistory
 *.local.*
