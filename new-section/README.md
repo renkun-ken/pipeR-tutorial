@@ -1,3 +1,0 @@
-# New section
-
-New section

@@ -1,8 +1,9 @@
 .Rproj.user
-_book/
 .rmdbuild
+_book
 *.DS_Store
 log/
 .RData
 .Rhistory
 *.local.*
+*.local
