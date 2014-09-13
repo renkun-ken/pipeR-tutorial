@@ -1,5 +1,4 @@
 
 
-# Getting started
-
+# First example
 

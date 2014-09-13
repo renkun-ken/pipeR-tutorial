@@ -1,7 +1,6 @@
 # Summary
 
 * [Getting started](Getting-started/README.md)
-    * [Install pipeR](Getting-started/Install-pipeR.md)
     * [First example](Getting-started/First-example.md)
     * [Design principles](Getting-started/Design-principles.md)
 * [Features](Features/README.md)
