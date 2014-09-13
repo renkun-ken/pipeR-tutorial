@@ -80,4 +80,4 @@ mtcars %>>%
 
 You may not be familiar with the above syntax yet. But you will probably be correct if you try to guess what happens in each step. pipeR tries to make the syntax as simple and intuitive as possible to make unified yet flexible pipeline experience.
 
-In this next page, more details are provided to explain the design principles of the pipeR along with the syntax.
+In the next page, more details are provided to explain the design principles of the pipeR along with the syntax.
