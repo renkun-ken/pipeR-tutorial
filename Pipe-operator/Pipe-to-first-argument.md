@@ -6,7 +6,7 @@ Many R functions are pipe-friendly: they take some data by the first argument an
 
 Here is an example of reorganizing code in pipeline written with elementary functions.
 
-The original code is
+Suppose the original code is
 
 
 ```r
@@ -15,8 +15,8 @@ summary(sample(diff(log(rnorm(100,mean = 10))),
 ```
 
 ```
-      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
--0.3350000 -0.0855000 -0.0018600 -0.0000566  0.0874200  0.4582000 
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-0.300900 -0.068480  0.004139  0.004382  0.087950  0.329100 
 ```
 
 Note that `rnorm()`, `log()`, `diff()`, `sample()`, and `summary()` all take the data as the first argument. We can use `%>>%` to rewrite the code so that the process of data transformation is straightforward.
@@ -114,3 +114,49 @@ mtcars %>>%
  3rd Qu.:21.48   3rd Qu.:3.690  
  Max.   :30.40   Max.   :5.424  
 ```
+
+In some other cases, the function is not very friendly to pipeline operation, that is, it does not take the data you transform through a pipeline as the first argument. One example is the linear model function `lm()`. This function take `formula` first and then `data`.
+
+If you directly call
+
+
+```r
+mtcars %>>%
+  lm(mpg ~ cyl + wt)
+```
+
+```
+Error: cannot coerce class ""formula"" to a data.frame
+```
+
+it will not work because `%>>%` is evaluating `lm(mtcars, mpg ~ cyl + wt)` which does not fulfil the expectation of the function. There are two ways to build pipeline with such kind of functions.
+
+First, use named parameter to specify the formula.
+
+
+```r
+mtcars %>>%
+  lm(formula = mpg ~ cyl + wt)
+```
+
+```
+
+Call:
+lm(formula = mpg ~ cyl + wt, data = .)
+
+Coefficients:
+(Intercept)          cyl           wt  
+     39.686       -1.508       -3.191  
+```
+
+This works because it is actually evaluated as 
+
+```r
+lm(mtcars, formula = mpg ~ cyl + wt)
+```
+
+and R's argument matching program decides that since the first argument in `lm()`'s definition `formula` is specified, the unnamed argument `mtcars` is regarded as specifying the second argument `data`, which is exactly what we want. Therefore, it works fine here.
+
+However, this trick only makes it easy for some functions but not all. Suppose a function that takes `data` as the third or fourth argument. In this case, you would have to explictly specify all previous arguments by name. If `data` argument follows `...`, the trick would not work at all.
+
+Dot piping is designed for more flexible pipeline construction. It allows you to use `.` to represent the left-hand side value and put it anywhere you want in the next expression. The next page demonstrates its syntax and when it might be useful.
