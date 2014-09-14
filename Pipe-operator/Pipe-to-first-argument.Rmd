@@ -86,14 +86,14 @@ mtcars %>>%
 
 In some other cases, the function is not very friendly to pipeline operation, that is, it does not take the data you transform through a pipeline as the first argument. One example is the linear model function `lm()`. This function take `formula` first and then `data`.
 
-If you directly call
+If you directly run
 
 ```{r}
 mtcars %>>%
   lm(mpg ~ cyl + wt)
 ```
 
-it will not work because `%>>%` is evaluating `lm(mtcars, mpg ~ cyl + wt)` which does not fulfil the expectation of the function. There are two ways to build pipeline with such kind of functions.
+it will fail because `%>>%` is evaluating `lm(mtcars, mpg ~ cyl + wt)` which does not fulfil the expectation of the function. There are two ways to build pipeline with such kind of functions.
 
 First, use named parameter to specify the formula.
 

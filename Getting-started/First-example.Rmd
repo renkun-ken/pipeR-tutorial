@@ -10,7 +10,7 @@ Suppose we are dealing with the built-in dataset `mtcars` and want to get a roug
 
 The traditional code is the following:
 
-```{r bootstrap}
+```{r bootstrap, fig.height=4}
 sample_mtcars <- sample(mtcars$mpg, 10000, replace = TRUE)
 density_mtcars <- density(sample_mtcars, kernel = "gaussian")
 plot(density_mtcars, col = "red", main="density of mpg (bootstrap)")

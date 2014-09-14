@@ -16,7 +16,7 @@ summary(sample(diff(log(rnorm(100,mean = 10))),
 
 ```
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
--0.300900 -0.068480  0.004139  0.004382  0.087950  0.329100 
+-0.351300 -0.100800  0.013120  0.001291  0.073390  0.454900 
 ```
 
 Note that `rnorm()`, `log()`, `diff()`, `sample()`, and `summary()` all take the data as the first argument. We can use `%>>%` to rewrite the code so that the process of data transformation is straightforward.
@@ -117,7 +117,7 @@ mtcars %>>%
 
 In some other cases, the function is not very friendly to pipeline operation, that is, it does not take the data you transform through a pipeline as the first argument. One example is the linear model function `lm()`. This function take `formula` first and then `data`.
 
-If you directly call
+If you directly run
 
 
 ```r
@@ -129,7 +129,7 @@ mtcars %>>%
 Error: cannot coerce class ""formula"" to a data.frame
 ```
 
-it will not work because `%>>%` is evaluating `lm(mtcars, mpg ~ cyl + wt)` which does not fulfil the expectation of the function. There are two ways to build pipeline with such kind of functions.
+it will fail because `%>>%` is evaluating `lm(mtcars, mpg ~ cyl + wt)` which does not fulfil the expectation of the function. There are two ways to build pipeline with such kind of functions.
 
 First, use named parameter to specify the formula.
 
