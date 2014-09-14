@@ -5,4 +5,3 @@ opts_chunk$set(prompt=FALSE, comment='', results='markup')
 
 # Pipe by formula
 
-Pipe by formula
