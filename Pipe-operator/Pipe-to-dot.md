@@ -27,7 +27,7 @@ or
 
 ```r
 mtcars %>>%
-  { lm(mpg ~ cyl + wt, data = .) }
+  ( lm(mpg ~ cyl + wt, data = .) )
 ```
 
 ```

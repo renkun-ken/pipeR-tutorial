@@ -19,7 +19,7 @@ or
 
 ```{r}
 mtcars %>>%
-  { lm(mpg ~ cyl + wt, data = .) }
+  ( lm(mpg ~ cyl + wt, data = .) )
 ```
 
 The difference between `{}` and `()` used above is
