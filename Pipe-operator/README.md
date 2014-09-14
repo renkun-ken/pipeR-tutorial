@@ -8,8 +8,6 @@ For those functions that are not so friendly to pipe operation, `%>>%` allows to
 
 The code are often made fluent and readable using pipeline. However, sometimes we need some side-effect such as plotting graphics and printing intermediate result. If we directly call them, the pipeline would be broken because the returned value may not be desired for further piping. `%>>%` supports side effect piping that only evaluates expression for its side effect.
 
-One useful implication of side-effect piping is that it allows saving intermediate value in a pipeline.
+One useful implication of side-effect piping is that it allows saving intermediate value in a pipeline. In some cases it is also useful to extract the element from the input object, which is also supported by `%>>%`.
 
-Sometimes it is also useful to extract the element from the input object, which is also supported by `%>>%`.
-
-The question is how does `%>>%` know what the user wants to do? Its behavior is fully determined by the syntax of the expression the user specifies. This chapter will introduce to you in great detail the syntactic rules of `%>>%`.
+The question is: **How does `%>>%` know what the user wants to do?** Its behavior is fully determined by the syntax of the expression the user specifies. This chapter will introduce to you in great detail the syntactic rules of `%>>%`.
