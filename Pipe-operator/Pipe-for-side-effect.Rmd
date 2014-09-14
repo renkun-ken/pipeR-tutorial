@@ -5,4 +5,4 @@ opts_chunk$set(prompt=FALSE, comment='', results='markup')
 
 # Pipe for side effect
 
-Pipe for side effect
+
