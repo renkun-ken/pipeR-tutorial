@@ -15,7 +15,7 @@ mtcars %>>%
 ```
 
 ```
-[1] 0.8302274
+Error: could not find function "%>>%"
 ```
 
 The syntax is not ambiguous with other features that used `()` because evaluating a symbol simply makes no sense.
@@ -28,7 +28,7 @@ list(a=1,b=2) %>>% (a) # list(a=1,b=2)[["a"]]
 ```
 
 ```
-[1] 1
+Error: could not find function "%>>%"
 ```
 
 ```r
@@ -36,7 +36,7 @@ c(a=1, b=2) %>>% (a) # c(a=1,b=2)[["a"]]
 ```
 
 ```
-[1] 1
+Error: could not find function "%>>%"
 ```
 
 For environment,
@@ -51,7 +51,7 @@ env %>>% (a) # env$a
 ```
 
 ```
-[1] 1
+Error: could not find function "%>>%"
 ```
 
 For S4 object, the syntax works too. We use `adfTest()` in library `fUnitRoots` to perform an ADF test to test the cointegration relationship between two vectors.
@@ -68,7 +68,7 @@ matplot(cbind(x,y),type = "l")
 
 <img src="figure/extract-s4.png" title="plot of chunk extract-s4" alt="plot of chunk extract-s4" style="display: block; margin: auto;" />
 
-Now given the data, we can perform an ADF test on the residules of linear model `lm(y ~ x)`.
+Now given the data, we can perform an ADF test on the residues of linear model `lm(y ~ x + 0)`.
 
 
 ```r
@@ -81,15 +81,10 @@ lm(y ~ x + 0) %>>%
 ```
 
 ```
-Warning: p-value smaller than printed p-value
+Error: could not find function "%>>%"
 ```
 
-```
-Dickey-Fuller 
-    -10.08887 
-```
-
-Note that the result of `fUnitRoots::adfTest()` is a S4 object which is assigned to `testobj`, and the result of `(test)` is no longer a S4 object but an ordinary list. Therefore, there's no different in the sytax of element extraction between S4 object and other objects that support `[[]]`.
+Note that the result of `fUnitRoots::adfTest()` is a S4 object which is assigned to `testobj`, and the result of `(test)` is no longer a S4 object but an ordinary list. Therefore, there's no different in the syntax of element extraction between S4 object and other objects that support `[[]]`.
 
 Since the syntax only accepts symbol name, to evaluate an expression with the piped object being the frame if it is a list or environment, using `with()` can be helpful.
 
@@ -100,7 +95,7 @@ list(a = 1, b = 2) %>>%
 ```
 
 ```
-[1] 5
+Error: could not find function "%>>%"
 ```
 
 But this method does not work for vector and S4 object.
