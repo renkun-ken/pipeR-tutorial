@@ -75,7 +75,8 @@ Now given the data, we can perform an ADF test on the residues of linear model `
 lm(y ~ x + 0) %>>%
   residuals %>>%
   fUnitRoots::adfTest(type = "nc") %>>% # S4 object
-  (~ testobj) %>>% # save test object to environment
+  (~ testobj) %>>%   # save test object to environment
+  (? class(.)) %>>%  # what's the class of it?
   (test) %>>% # testobj@test
   (statistic) # testobj@test$statistic
 ```
@@ -85,11 +86,18 @@ Warning: p-value smaller than printed p-value
 ```
 
 ```
+? class(.)
+[1] "fHTEST"
+attr(,"package")
+[1] "fBasics"
+```
+
+```
 Dickey-Fuller 
     -10.08887 
 ```
 
-Note that the result of `fUnitRoots::adfTest()` is a S4 object which is assigned to `testobj`, and the result of `(test)` is no longer a S4 object but an ordinary list. Therefore, there's no different in the syntax of element extraction between S4 object and other objects that support `[[]]`.
+Note that the result of `fUnitRoots::adfTest()` is a S4 object of class `fHTEST` which is assigned to `testobj`. The result of `(test)` is no longer a S4 object but an ordinary list. Therefore, there's no difference in the syntax of element extraction between S4 object and other objects that support `[[]]`.
 
 Since the syntax only accepts symbol name, to evaluate an expression with the piped object being the frame if it is a list or environment, using `with()` or `within()` can be helpful.
 
