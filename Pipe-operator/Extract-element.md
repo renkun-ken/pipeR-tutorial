@@ -15,7 +15,7 @@ mtcars %>>%
 ```
 
 ```
-Error: could not find function "%>>%"
+[1] 0.8302274
 ```
 
 The syntax is not ambiguous with other features that used `()` because evaluating a symbol simply makes no sense.
@@ -28,7 +28,7 @@ list(a=1,b=2) %>>% (a) # list(a=1,b=2)[["a"]]
 ```
 
 ```
-Error: could not find function "%>>%"
+[1] 1
 ```
 
 ```r
@@ -36,7 +36,7 @@ c(a=1, b=2) %>>% (a) # c(a=1,b=2)[["a"]]
 ```
 
 ```
-Error: could not find function "%>>%"
+[1] 1
 ```
 
 For environment,
@@ -51,7 +51,7 @@ env %>>% (a) # env$a
 ```
 
 ```
-Error: could not find function "%>>%"
+[1] 1
 ```
 
 For S4 object, the syntax works too. We use `adfTest()` in library `fUnitRoots` to perform an ADF test to test the cointegration relationship between two vectors.
@@ -81,12 +81,17 @@ lm(y ~ x + 0) %>>%
 ```
 
 ```
-Error: could not find function "%>>%"
+Warning: p-value smaller than printed p-value
+```
+
+```
+Dickey-Fuller 
+    -10.08887 
 ```
 
 Note that the result of `fUnitRoots::adfTest()` is a S4 object which is assigned to `testobj`, and the result of `(test)` is no longer a S4 object but an ordinary list. Therefore, there's no different in the syntax of element extraction between S4 object and other objects that support `[[]]`.
 
-Since the syntax only accepts symbol name, to evaluate an expression with the piped object being the frame if it is a list or environment, using `with()` can be helpful.
+Since the syntax only accepts symbol name, to evaluate an expression with the piped object being the frame if it is a list or environment, using `with()` or `within()` can be helpful.
 
 
 ```r
@@ -95,7 +100,7 @@ list(a = 1, b = 2) %>>%
 ```
 
 ```
-Error: could not find function "%>>%"
+[1] 5
 ```
 
 But this method does not work for vector and S4 object.

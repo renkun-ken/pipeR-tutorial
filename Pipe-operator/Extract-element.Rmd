@@ -59,7 +59,7 @@ lm(y ~ x + 0) %>>%
 
 Note that the result of `fUnitRoots::adfTest()` is a S4 object which is assigned to `testobj`, and the result of `(test)` is no longer a S4 object but an ordinary list. Therefore, there's no different in the syntax of element extraction between S4 object and other objects that support `[[]]`.
 
-Since the syntax only accepts symbol name, to evaluate an expression with the piped object being the frame if it is a list or environment, using `with()` can be helpful.
+Since the syntax only accepts symbol name, to evaluate an expression with the piped object being the frame if it is a list or environment, using `with()` or `within()` can be helpful.
 
 ```{r}
 list(a = 1, b = 2) %>>%
