@@ -1,8 +1,29 @@
 ```{r knitsetup, echo=FALSE, results='hide', warning=FALSE, message=FALSE, cache=FALSE}
 opts_knit$set(base.dir='./', fig.path='', out.format='md')
-opts_chunk$set(prompt=FALSE, comment='', results='markup')
+opts_chunk$set(prompt=FALSE, comment='#', fig.align = 'center', results='markup')
+library(pipeR)
 ```
 
 # Dot function
 
-Dot function
+As we have mentioned above, not all functions are pipe-friendly. While `%>>%` accepts `{}` and `()` on the right side, `Pipe` object provides `.()` to perform exactly the same set of features with `x %>>% (...)`.
+
+## Pipe to dot
+
+```{r}
+Pipe(mtcars)$
+  .(lm(mpg ~ cyl + wt, data = .))
+```
+
+## Pipe by formula
+
+```{r}
+Pipe(mtcars)$
+  .(df ~ lm(mpg ~ cyl + wt, data = df))
+```
+
+## Pipe for side effect
+
+## Pipe with assignment
+
+## Extract element
