@@ -2,4 +2,21 @@
 
 # Extract element
 
-Extract element
+`x %>>% (y)` means extracting the element named `y` from object `x` where `y` must be a valid symbol name and `x` can be a vector, list, environment or anything else for which `[[]]` is defined, or S4 object.
+
+```r
+mtcars %>>%
+  (lm(mpg ~ wt + cyl, data = .)) %>>%
+  (~ lm_mtcars) %>>%
+  summary %>>%
+  (r.squared)
+```
+
+To evaluate an expression within the piped object if it is a list or environment, use `with()` can be helpful.
+
+```r
+list(a = 1, b = 2) %>>%
+  with(a+2*b)
+```
+
+But this method does not work for vector and S4 object.

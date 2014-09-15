@@ -53,9 +53,18 @@ mtcars$mpg %>>%
 
 Sometimes the value on the left is needed at multiple places. In this case you can use `.` to represent it anywhere in the function call.
 
-```r
+Plot `mtcars$mpg` with a title indicating the number of points.
+
+```{r mtcars-with-title, fig.height=4}
 mtcars$mpg %>>%
   plot(col="red", main=sprintf("number of points: %d",length(.)))
+```
+
+Take a sample from the lower letters of half the population.
+
+```{r}
+letters %>>%
+  sample(size = length(.)/2)
 ```
 
 There are situations where one calls a function in a namespace with `::`. In this case, the call must end up with parentheses with or without parameters..

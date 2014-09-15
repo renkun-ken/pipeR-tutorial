@@ -2,4 +2,32 @@
 
 # Pipe with assignment
 
-Pipe with assignment
+In addition to printing and plotting, one may need to save an intermediate value to the environment by assigning the value to a variable (symbol).
+
+If one needs to assign the value to a symbol, just insert a step like `(~ symbol)`, then the input value of that step will be assigned to `symbol` in the current environment.
+
+```r
+mtcars %>>%
+  (lm(formula = mpg ~ wt + cyl, data = .)) %>>%
+  (~ lm_mtcars) %>>%
+  summary
+```
+
+If the input value is not directly to be saved but after some transformation, then one can use `=` to specify a lambda expression to tell what to be saved (thanks @yanlinlin82 for suggestion).
+
+```r
+mtcars %>>%
+  (~ summ = summary(.)) %>>%  # side-effect assignment
+  (lm(formula = mpg ~ wt + cyl, data = .)) %>>%
+  (~ lm_mtcars) %>>%
+  summary
+```
+
+An easier way to saving intermediate value that is to be further piped is to use `(symbol = expression)` syntax.
+
+```r
+mtcars %>>%
+  (~ summ = summary(.)) %>>%  # side-effect assignment
+  (lm_mtcars = lm(formula = mpg ~ wt + cyl, data = .)) %>>%  # continue piping
+  summary
+```

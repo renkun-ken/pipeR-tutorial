@@ -16,7 +16,7 @@ summary(sample(diff(log(rnorm(100,mean = 10))),
 
 ```
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
--0.379900 -0.098100  0.006301 -0.002155  0.091110  0.360400 
+-0.371900 -0.123500  0.002727  0.003247  0.114300  0.478000 
 ```
 
 Note that `rnorm()`, `log()`, `diff()`, `sample()`, and `summary()` all take the data as the first argument. We can use `%>>%` to rewrite the code so that the process of data transformation is straightforward.
@@ -62,9 +62,26 @@ mtcars$mpg %>>%
 
 Sometimes the value on the left is needed at multiple places. In this case you can use `.` to represent it anywhere in the function call.
 
+Plot `mtcars$mpg` with a title indicating the number of points.
+
+
 ```r
 mtcars$mpg %>>%
   plot(col="red", main=sprintf("number of points: %d",length(.)))
+```
+
+<img src="figure/mtcars-with-title.png" title="plot of chunk mtcars-with-title" alt="plot of chunk mtcars-with-title" style="display: block; margin: auto;" />
+
+Take a sample from the lower letters of half the population.
+
+
+```r
+letters %>>%
+  sample(size = length(.)/2)
+```
+
+```
+ [1] "p" "j" "o" "x" "q" "e" "z" "u" "i" "l" "f" "a" "m"
 ```
 
 There are situations where one calls a function in a namespace with `::`. In this case, the call must end up with parentheses with or without parameters..
