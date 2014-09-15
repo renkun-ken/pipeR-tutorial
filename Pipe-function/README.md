@@ -20,5 +20,5 @@ can be rewritten like
 ```r
 Pipe(mtcars)$
   lm(formula = mpg ~ wt + cyl)$
-  summary
+  summary()
 ```
