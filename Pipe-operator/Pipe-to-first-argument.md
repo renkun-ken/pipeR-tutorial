@@ -16,7 +16,7 @@ summary(sample(diff(log(rnorm(100,mean = 10))),
 
 ```
      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
--0.351300 -0.100800  0.013120  0.001291  0.073390  0.454900 
+-0.379900 -0.098100  0.006301 -0.002155  0.091110  0.360400 
 ```
 
 Note that `rnorm()`, `log()`, `diff()`, `sample()`, and `summary()` all take the data as the first argument. We can use `%>>%` to rewrite the code so that the process of data transformation is straightforward.

@@ -13,7 +13,7 @@ density_mtcars <- density(sample_mtcars, kernel = "gaussian")
 plot(density_mtcars, col = "red", main="density of mpg (bootstrap)")
 ```
 
-![plot of chunk bootstrap](figure/bootstrap.png) 
+<img src="figure/bootstrap.png" title="plot of chunk bootstrap" alt="plot of chunk bootstrap" style="display: block; margin: auto;" />
 
 The traditional approach introduces some intermediate variables which may be used only once. If one wants to avoid these variables and combine the lines together, the code will become
 

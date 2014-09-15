@@ -94,7 +94,7 @@ mtcars %>>% {
 }
 ```
 
-![plot of chunk multiline](figure/multiline.png) 
+<img src="figure/multiline.png" title="plot of chunk multiline" alt="plot of chunk multiline" style="display: block; margin: auto;" />
 
 Another thing is that the meaning of nested dots are always determined by the working operator for that dot symbol. For example, the above code can be refined to
 
@@ -107,6 +107,6 @@ mtcars %>>% {
 }
 ```
 
-![plot of chunk nested_dots](figure/nested_dots.png) 
+<img src="figure/nested_dots.png" title="plot of chunk nested_dots" alt="plot of chunk nested_dots" style="display: block; margin: auto;" />
 
 It should be obvious that `.` below `par()` belong to the first `%>>%` that works with `mtcars` while `.` in `length()` belong to the operator that works with `.$mpg` so that it can correctly show the length of `mpg` (32) rather than that of `mtcars` (11).
