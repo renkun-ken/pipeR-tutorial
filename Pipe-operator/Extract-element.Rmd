@@ -5,19 +5,63 @@ opts_chunk$set(prompt=FALSE, comment='', fig.align = 'center', results='markup')
 
 # Extract element
 
-`x %>>% (y)` means extracting the element named `y` from object `x` where `y` must be a valid symbol name and `x` can be a vector, list, environment or anything else for which `[[]]` is defined, or S4 object.
+In some cases, one might need to extract an element from an object. For example, extract `r.squared` from the summary of a linear model, extract the test statistics from a S4 object.
 
-```r
+The syntax `x %>>% (y)` indicates to extract the element named `y` from object `x` where `y` must be a valid symbol name and `x` can be a vector, list, environment or anything else that supports `[[]]`. It also works with S4 object and able to extract a slot from it in exactly the same way.
+
+```{r}
 mtcars %>>%
   (lm(mpg ~ wt + cyl, data = .)) %>>%
-  (~ lm_mtcars) %>>%
   summary %>>%
   (r.squared)
 ```
 
-To evaluate an expression within the piped object if it is a list or environment, use `with()` can be helpful.
+The syntax is not ambiguous with other features that used `()` because evaluating a symbol simply makes no sense.
 
-```r
+As we know that `[[]]` are defined for vector, list, and environment, the following simple examples work.
+
+```{r}
+list(a=1,b=2) %>>% (a) # list(a=1,b=2)[["a"]]
+c(a=1, b=2) %>>% (a) # c(a=1,b=2)[["a"]]
+```
+
+For environment,
+
+```{r}
+env <- new.env()
+env$a <- 1
+env$b <- 2
+# do more things here ...
+env %>>% (a) # env$a
+```
+
+For S4 object, the syntax works too. We use `adfTest()` in library `fUnitRoots` to perform an ADF test to test the cointegration relationship between two vectors.
+
+Suppose the data generating process is
+
+```{r extract-s4, fig.height = 4}
+set.seed(0)
+x <- cumsum(rnorm(150))
+y <- 2*x + rnorm(150)*0.5
+matplot(cbind(x,y),type = "l")
+```
+
+Now given the data, we can perform an ADF test on the residules of linear model `lm(y ~ x)`.
+
+```{r}
+lm(y ~ x + 0) %>>%
+  residuals %>>%
+  fUnitRoots::adfTest(type = "nc") %>>% # S4 object
+  (~ testobj) %>>% # save test object to environment
+  (test) %>>% # testobj@test
+  (statistic) # testobj@test$statistic
+```
+
+Note that the result of `fUnitRoots::adfTest()` is a S4 object which is assigned to `testobj`, and the result of `(test)` is no longer a S4 object but an ordinary list. Therefore, there's no different in the sytax of element extraction between S4 object and other objects that support `[[]]`.
+
+Since the syntax only accepts symbol name, to evaluate an expression with the piped object being the frame if it is a list or environment, using `with()` can be helpful.
+
+```{r}
 list(a = 1, b = 2) %>>%
   with(a+2*b)
 ```

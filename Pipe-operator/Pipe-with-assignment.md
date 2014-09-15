@@ -13,7 +13,7 @@ mtcars %>>%
   summary
 ```
 
-If the input value is not directly to be saved but after some transformation, then one can use `=` to specify a lambda expression to tell what to be saved (thanks @yanlinlin82 for suggestion).
+If the input value is not directly to be saved but after some transformation, then one can use `=`, `<-`, or more natural `->` to specify a lambda expression to tell what to be saved (thanks @yanlinlin82 for suggestion).
 
 ```r
 mtcars %>>%
@@ -23,11 +23,28 @@ mtcars %>>%
   summary
 ```
 
-An easier way to saving intermediate value that is to be further piped is to use `(symbol = expression)` syntax.
+```r
+mtcars %>>%
+  (~ summary(.) -> summ) %>>%
+  
+mtcars %>>%
+  (~ summ <- summary(.)) %>>%
+```
+
+An easier way to saving intermediate value that is to be further piped is to use `(symbol = expression)` syntax:
 
 ```r
 mtcars %>>%
   (~ summ = summary(.)) %>>%  # side-effect assignment
   (lm_mtcars = lm(formula = mpg ~ wt + cyl, data = .)) %>>%  # continue piping
+  summary
+```
+
+or `(expression -> symbol)` syntax:
+
+```r
+mtcars %>>%
+  (~ summary(.) -> summ) %>>%  # side-effect assignment
+  (lm(formula = mpg ~ wt + cyl, data = .) -> lm_mtcars) %>>%  # continue piping
   summary
 ```
