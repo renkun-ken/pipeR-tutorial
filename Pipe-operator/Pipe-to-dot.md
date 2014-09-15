@@ -13,13 +13,13 @@ mtcars %>>%
 ```
 
 ```
-
-Call:
-lm(formula = mpg ~ cyl + wt, data = .)
-
-Coefficients:
-(Intercept)          cyl           wt  
-     39.686       -1.508       -3.191  
+# 
+# Call:
+# lm(formula = mpg ~ cyl + wt, data = .)
+# 
+# Coefficients:
+# (Intercept)          cyl           wt  
+#      39.686       -1.508       -3.191
 ```
 
 or 
@@ -31,13 +31,13 @@ mtcars %>>%
 ```
 
 ```
-
-Call:
-lm(formula = mpg ~ cyl + wt, data = .)
-
-Coefficients:
-(Intercept)          cyl           wt  
-     39.686       -1.508       -3.191  
+# 
+# Call:
+# lm(formula = mpg ~ cyl + wt, data = .)
+# 
+# Coefficients:
+# (Intercept)          cyl           wt  
+#      39.686       -1.508       -3.191
 ```
 
 The difference between `{}` and `()` used above is
@@ -57,11 +57,11 @@ mtcars %>>% {
 ```
 
 ```
-$r.squared
-[1] 0.8302274
-
-$adj.r.squared
-[1] 0.8185189
+# $r.squared
+# [1] 0.8302274
+# 
+# $adj.r.squared
+# [1] 0.8185189
 ```
 
 It shows that `{}` holds a code block whose value is determined by the last expression or interrupted by `return()`.
@@ -80,7 +80,7 @@ mtcars %>>%
 ```
 
 ```
-[1] "Model A"
+# [1] "Model A"
 ```
 
 One thing to notice is that `{}` is more flexible than previously demonstrated. It also allows using `%>>%` within the braces as well as causing side effect such as plotting graphics.

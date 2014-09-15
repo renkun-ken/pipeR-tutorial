@@ -11,17 +11,17 @@ mtcars %>>%
 ```
 
 ```
-
-Call:
-lm(formula = mpg ~ ., data = .)
-
-Coefficients:
-(Intercept)          cyl         disp           hp         drat  
-   12.30337     -0.11144      0.01334     -0.02148      0.78711  
-         wt         qsec           vs           am         gear  
-   -3.71530      0.82104      0.31776      2.52023      0.65541  
-       carb  
-   -0.19942  
+# 
+# Call:
+# lm(formula = mpg ~ ., data = .)
+# 
+# Coefficients:
+# (Intercept)          cyl         disp           hp         drat  
+#    12.30337     -0.11144      0.01334     -0.02148      0.78711  
+#          wt         qsec           vs           am         gear  
+#    -3.71530      0.82104      0.31776      2.52023      0.65541  
+#        carb  
+#    -0.19942
 ```
 
 The code above works correctly even though the two dots in the second line have different meanings:
@@ -40,17 +40,17 @@ mtcars %>>%
 ```
 
 ```
-
-Call:
-lm(formula = mpg ~ ., data = df)
-
-Coefficients:
-(Intercept)          cyl         disp           hp         drat  
-   12.30337     -0.11144      0.01334     -0.02148      0.78711  
-         wt         qsec           vs           am         gear  
-   -3.71530      0.82104      0.31776      2.52023      0.65541  
-       carb  
-   -0.19942  
+# 
+# Call:
+# lm(formula = mpg ~ ., data = df)
+# 
+# Coefficients:
+# (Intercept)          cyl         disp           hp         drat  
+#    12.30337     -0.11144      0.01334     -0.02148      0.78711  
+#          wt         qsec           vs           am         gear  
+#    -3.71530      0.82104      0.31776      2.52023      0.65541  
+#        carb  
+#    -0.19942
 ```
 
 where the formula tells `%>>%` to use `df` to represent `mtcars` so that the expression of linear model fit won't look ambiguous any more.
@@ -65,13 +65,13 @@ mtcars %>>%
 ```
 
 ```
-
-Call:
-lm(formula = mpg ~ ., data = x)
-
-Coefficients:
-(Intercept)           wt          cyl  
-     39.686       -3.191       -1.508  
+# 
+# Call:
+# lm(formula = mpg ~ ., data = x)
+# 
+# Coefficients:
+# (Intercept)           wt          cyl  
+#      39.686       -3.191       -1.508
 ```
 
 One thing to notice is that the formula must be enclosed in `()` and cannot function in `{}` as we have noted before.
@@ -90,10 +90,10 @@ mtcars %>>%
 ```
 
 ```
-$n
-[1] 32
-
-$r.squared
-[1] 0.8302274
+# $n
+# [1] 32
+# 
+# $r.squared
+# [1] 0.8302274
 ```
 

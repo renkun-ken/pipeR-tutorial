@@ -15,7 +15,7 @@ mtcars %>>%
 ```
 
 ```
-[1] 0.8302274
+# [1] 0.8302274
 ```
 
 The syntax is not ambiguous with other features that used `()` because evaluating a symbol simply makes no sense.
@@ -28,7 +28,7 @@ list(a=1,b=2) %>>% (a) # list(a=1,b=2)[["a"]]
 ```
 
 ```
-[1] 1
+# [1] 1
 ```
 
 ```r
@@ -36,7 +36,7 @@ c(a=1, b=2) %>>% (a) # c(a=1,b=2)[["a"]]
 ```
 
 ```
-[1] 1
+# [1] 1
 ```
 
 For environment,
@@ -51,7 +51,7 @@ env %>>% (a) # env$a
 ```
 
 ```
-[1] 1
+# [1] 1
 ```
 
 For S4 object, the syntax works too. We use `adfTest()` in library `fUnitRoots` to perform an ADF test to test the cointegration relationship between two vectors.
@@ -82,19 +82,19 @@ lm(y ~ x + 0) %>>%
 ```
 
 ```
-Warning: p-value smaller than printed p-value
+# Warning: p-value smaller than printed p-value
 ```
 
 ```
-? class(.)
-[1] "fHTEST"
-attr(,"package")
-[1] "fBasics"
+# ? class(.)
+# [1] "fHTEST"
+# attr(,"package")
+# [1] "fBasics"
 ```
 
 ```
-Dickey-Fuller 
-    -10.08887 
+# Dickey-Fuller 
+#     -10.08887
 ```
 
 Note that the result of `fUnitRoots::adfTest()` is a S4 object of class `fHTEST` which is assigned to `testobj`. The result of `(test)` is no longer a S4 object but an ordinary list. Therefore, there's no difference in the syntax of element extraction between S4 object and other objects that support `[[]]`.
@@ -108,7 +108,7 @@ list(a = 1, b = 2) %>>%
 ```
 
 ```
-[1] 5
+# [1] 5
 ```
 
 But this method does not work for vector and S4 object.
