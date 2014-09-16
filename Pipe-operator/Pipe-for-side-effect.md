@@ -203,3 +203,36 @@ Browse[1]>
 ```
 
 In the mode, `.` represents the object being piped, and you can evaluate any expression you are interested in. To continue piping, just hit `<Enter>`.
+
+If you want to distinguish different breakpoints, you can add `cat()` or `message()` ahead to show some message before getting paused.
+
+```r
+mtcars %>>% 
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  (~ message("debug1")) %>>%
+  (~ browser()) %>>%
+  lm(formula = mpg ~ cyl + wt) %>>%
+  summary
+```
+
+The code will pause after showing the message `debug1` as following:
+
+```
+debug1
+Called from: eval(expr, envir, enclos)
+Browse[1]> 
+```
+
+In this way, you can easily find out which breakpoint is hit.
+
+Since `browser()` supports conditional breakpoint with `expr =` being set, the breakpoint can be smart to examine the value of the expression and then decide whether or not to pause. For example,
+
+```r
+mtcars %>>% 
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  lm(formula = mpg ~ cyl + wt) %>>%
+  summary %>>%
+  (~ browser(expr = .$r.squared < 0.8))
+```
+
+If the $$R^2$$ of the linear model is less than 0.8, the evaluation will pause and wait for browser. You can adjust the threashold at anytime to any value you think indicating a problem.
