@@ -90,3 +90,16 @@ density_plot("rectangular")
 density_plot("triangular")
 ```
 
+## Calling anonymous function
+
+```{r}
+mtcars %>>%
+  lm(formula = mpg ~ wt + cyl) %>>%
+  (function(model, warn_level) {
+    if(summary(model)$r.squared < warn_level)
+      warning("r.squared is too low", call. = FALSE)
+    model
+  })(0.9) %>>%
+  coef
+```
+

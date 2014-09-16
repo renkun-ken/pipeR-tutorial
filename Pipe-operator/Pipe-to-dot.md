@@ -131,3 +131,26 @@ density_plot("triangular")
 
 <img src="figure/create-closure.png" title="plot of chunk create-closure" alt="plot of chunk create-closure" style="display: block; margin: auto;" />
 
+## Calling anonymous function
+
+
+```r
+mtcars %>>%
+  lm(formula = mpg ~ wt + cyl) %>>%
+  (function(model, warn_level) {
+    if(summary(model)$r.squared < warn_level)
+      warning("r.squared is too low", call. = FALSE)
+    model
+  })(0.9) %>>%
+  coef
+```
+
+```
+# Warning: r.squared is too low
+```
+
+```
+# (Intercept)          wt         cyl 
+#   39.686261   -3.190972   -1.507795
+```
+
