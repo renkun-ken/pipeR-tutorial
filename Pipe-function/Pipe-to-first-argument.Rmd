@@ -71,4 +71,37 @@ Pipe(mtcars$mpg)$
   plot(col = "red", main = sprintf("mpg (%d obs.)", length(.)))
 ```
 
-[Option to turn off header]
+You may notice that the previous `plot()` only produces graphics but the `NULL` value it returns are not explicitly printed. `Pipe` by design mutes `NULL` value as being printed. However, not all graphics functions return `NULL`. `hist()` is one example.
+
+```{r pipe-hist, fig.height=4}
+Pipe(mtcars$mpg)$
+  hist(main = "distribution of mpg")
+```
+
+The output is no longer `NULL` but a new `Pipe` object consisting of a `histogram` object with a few elements indicating its properties. 
+
+All `Pipe` objects are printed with, by default, a header like `$value: class`. If you find it annoying, you can turn off the header by setting the option `Pipe.header` to `FALSE` with
+
+```r
+options(Pipe.header = FALSE)
+```
+
+This is **NOT** recommended because `Pipe` object and ordinary objects are essentially different. For better distinction, we suggest that you give  all `Pipe` objects name that start with `p` and do not turn off this option.
+
+The following example demonstrate a recommended use of `Pipe` object in multiple ways.
+
+```{r}
+pmtcars <- Pipe(mtcars)$
+  subset(mpg >= quantile(mpg, 0.05) & mpg <= quantile(mpg, 0.95))
+
+pmtcars$
+  lm(formula = mpg ~ wt + cyl)$
+  coef()
+
+pmtcars$
+  lm(formula = mpg ~ wt + cyl + qsec)$
+  summary()$
+  coef()
+```
+
+Note that we create a `Pipe` object from `mtcars` and filters it by lower and upper quantile. The result is still a `Pipe` object so that we can pipe with it further until we use `$value` or `[]` to extract its value.

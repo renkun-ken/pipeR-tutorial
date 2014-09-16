@@ -24,6 +24,64 @@ Pipe(mtcars)$
 
 ## Pipe for side effect
 
+```{r}
+Pipe(mtcars)$
+  subset(mpg >= quantile(mpg, 0.05) & mpg <= quantile(mpg, 0.95),
+    c(mpg, cyl, wt))$
+  .(~ cat("rows:",nrow(.),"\n"))$
+  summary()
+```
+
+
+```{r}
+Pipe(mtcars)$
+  subset(vs == 1, c(mpg, cyl, wt))$
+  .(? nrow(.))$
+  .(? data ~ ncol(data))$
+  summary()
+```
+
+
+```r
+mtcars %>>% 
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  (~ browser()) %>>%
+  lm(formula = mpg ~ cyl + wt) %>>%
+  summary
+```
+
 ## Pipe with assignment
 
+```{r}
+pmodel <- Pipe(mtcars)$
+  subset(select = c(mpg, wt, cyl))$
+  .(~ sub_mtcars)$ # assign subsetted mtcars to sub_mtcars
+  lm(formula = mpg ~ wt + cyl)
+
+summary(sub_mtcars)
+```
+
+```{r}
+pmodel$predict(list(wt = 3.5, cyl = 7.5))
+```
+
+Note that `=` in function argument will be interpreted as argument selection, therefore `=` cannot be used to assign value in `.()` function.
+
+The way to perform assignment is to use `<-` or `->` introduced by pipeR v0.5 like the following:
+
+```r
+Pipe(mtcars)$
+  .(~ summary(.) -> summ)
+  
+Pipe(mtcars)$
+  .(~ summ <- summary(.))
+```
+
 ## Extract element
+
+```{r}
+Pipe(mtcars)$
+  lm(formula = mpg ~ wt + cyl)$
+  summary()$
+  .(r.squared)
+```

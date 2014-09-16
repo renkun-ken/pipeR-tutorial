@@ -115,4 +115,85 @@ Pipe(mtcars$mpg)$
 
 <img src="figure/pipe-dot.png" title="plot of chunk pipe-dot" alt="plot of chunk pipe-dot" style="display: block; margin: auto;" />
 
-[Option to turn off header]
+You may notice that the previous `plot()` only produces graphics but the `NULL` value it returns are not explicitly printed. `Pipe` by design mutes `NULL` value as being printed. However, not all graphics functions return `NULL`. `hist()` is one example.
+
+
+```r
+Pipe(mtcars$mpg)$
+  hist(main = "distribution of mpg")
+```
+
+<img src="figure/pipe-hist.png" title="plot of chunk pipe-hist" alt="plot of chunk pipe-hist" style="display: block; margin: auto;" />
+
+```
+# $value : histogram 
+# ------
+# $breaks
+# [1] 10 15 20 25 30 35
+# 
+# $counts
+# [1]  6 12  8  2  4
+# 
+# $density
+# [1] 0.0375 0.0750 0.0500 0.0125 0.0250
+# 
+# $mids
+# [1] 12.5 17.5 22.5 27.5 32.5
+# 
+# $xname
+# [1] "."
+# 
+# $equidist
+# [1] TRUE
+# 
+# attr(,"class")
+# [1] "histogram"
+```
+
+The output is no longer `NULL` but a new `Pipe` object consisting of a `histogram` object with a few elements indicating its properties. 
+
+All `Pipe` objects are printed with, by default, a header like `$value: class`. If you find it annoying, you can turn off the header by setting the option `Pipe.header` to `FALSE` with
+
+```r
+options(Pipe.header = FALSE)
+```
+
+This is **NOT** recommended because `Pipe` object and ordinary objects are essentially different. For better distinction, we suggest that you give  all `Pipe` objects name that start with `p` and do not turn off this option.
+
+The following example demonstrate a recommended use of `Pipe` object in multiple ways.
+
+
+```r
+pmtcars <- Pipe(mtcars)$
+  subset(mpg >= quantile(mpg, 0.05) & mpg <= quantile(mpg, 0.95))
+
+pmtcars$
+  lm(formula = mpg ~ wt + cyl)$
+  coef()
+```
+
+```
+# $value : numeric 
+# ------
+# (Intercept)          wt         cyl 
+#   36.630834   -2.528175   -1.418216
+```
+
+```r
+pmtcars$
+  lm(formula = mpg ~ wt + cyl + qsec)$
+  summary()$
+  coef()
+```
+
+```
+# $value : matrix 
+# ------
+#               Estimate Std. Error    t value     Pr(>|t|)
+# (Intercept) 33.4441378  6.8351140  4.8929890 5.453045e-05
+# wt          -2.8134666  0.9787605 -2.8745201 8.344557e-03
+# cyl         -1.2183510  0.5495775 -2.2168865 3.635652e-02
+# qsec         0.1605394  0.3343038  0.4802202 6.354189e-01
+```
+
+Note that we create a `Pipe` object from `mtcars` and filters it by lower and upper quantile. The result is still a `Pipe` object so that we can pipe with it further until we use `$value` or `[]` to extract its value.

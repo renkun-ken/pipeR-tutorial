@@ -86,10 +86,10 @@ In pipeR v0.5, the assignment operators are enabled for their job. Note that the
 
 ```r
 mtcars %>>%
-  (~ summary(.) -> summ) %>>%
+  (~ summary(.) -> summ)
   
 mtcars %>>%
-  (~ summ <- summary(.)) %>>%
+  (~ summ <- summary(.))
 ```
 
 The `(~ expression -> symbol)` and `(~ symbol <- expression)` syntax work for side-effect assignment, and `(expression -> symbol)` and `(symbol <- assignment)` work for piping with assignment.
