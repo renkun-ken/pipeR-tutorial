@@ -197,3 +197,20 @@ pmtcars$
 ```
 
 Note that we create a `Pipe` object from `mtcars` and filters it by lower and upper quantile. The result is still a `Pipe` object so that we can pipe with it further until we use `$value` or `[]` to extract its value.
+
+## Creating partial function
+
+
+```r
+density_plot <- Pipe(mtcars$mpg)$
+  sample(size = 10000, replace = TRUE)$
+  density(kernel = "gaussian")$
+  plot
+
+par(mfrow=c(1,2))
+density_plot(col = "blue", main = "blue points")
+density_plot(col = "gray", type = "o", main = "gray circles")
+```
+
+<img src="figure/partial-function.png" title="plot of chunk partial-function" alt="plot of chunk partial-function" style="display: block; margin: auto;" />
+
