@@ -110,3 +110,24 @@ mtcars %>>% {
 <img src="figure/nested_dots.png" title="plot of chunk nested_dots" alt="plot of chunk nested_dots" style="display: block; margin: auto;" />
 
 It should be obvious that `.` below `par()` belong to the first `%>>%` that works with `mtcars` while `.` in `length()` belong to the operator that works with `.$mpg` so that it can correctly show the length of `mpg` (32) rather than that of `mtcars` (11).
+
+## Creating closure
+
+
+```r
+density_plot <- mtcars$mpg %>>%
+  sample(size = 10000, replace = TRUE) %>>%
+  (function(kernel) {
+    . %>>%
+      density(kernel = kernel) %>>%
+      plot(main = sprintf("%s kernel", kernel))
+  })
+
+par(mfrow=c(1,3))
+density_plot("gaussian")
+density_plot("rectangular")
+density_plot("triangular")
+```
+
+<img src="figure/create-closure.png" title="plot of chunk create-closure" alt="plot of chunk create-closure" style="display: block; margin: auto;" />
+

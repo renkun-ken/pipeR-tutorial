@@ -72,3 +72,21 @@ mtcars %>>% {
 ```
 
 It should be obvious that `.` below `par()` belong to the first `%>>%` that works with `mtcars` while `.` in `length()` belong to the operator that works with `.$mpg` so that it can correctly show the length of `mpg` (`r length(mtcars$mpg)`) rather than that of `mtcars` (`r length(mtcars)`).
+
+## Creating closure
+
+```{r create-closure, fig.height=4, fig.width=10}
+density_plot <- mtcars$mpg %>>%
+  sample(size = 10000, replace = TRUE) %>>%
+  (function(kernel) {
+    . %>>%
+      density(kernel = kernel) %>>%
+      plot(main = sprintf("%s kernel", kernel))
+  })
+
+par(mfrow=c(1,3))
+density_plot("gaussian")
+density_plot("rectangular")
+density_plot("triangular")
+```
+
