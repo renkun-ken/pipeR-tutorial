@@ -92,6 +92,14 @@ mtcars %>>%
 
 ## Stopping
 
+Side effects are usually used on purpose not to influence the mainstream pipeline or workflow. But in some cases, such influence can be useful.
+
+An example is stopping. If we call `stopifnot(...)` as side effect in the middle of a pipeline, we are actually trying to ensure a series of conditions. If any of the conditions does not hold, the evaluation will stop.
+
+The following code build a linear model on `mtcars` and before making predictions, we insert a condition to check: if $$R^2 >= 0.5$$ is violated, the pipeline will be terminated immediately.
+
+In this particular case, the required $$R^2$$ is too low to be violated for this linear model.
+
 ```{r}
 mtcars %>>% 
   subset(vs == 1, c(mpg, cyl, wt)) %>>%
@@ -99,6 +107,8 @@ mtcars %>>%
   (~ stopifnot(summary(.)$r.squared >= 0.5)) %>>%
   predict(newdata = list(cyl = 4.5, wt  = 3.0))
 ```
+
+If we adjust the threshold to 0.8, the pipeline will be stopped before making predictions.
 
 ```{r}
 mtcars %>>% 
@@ -110,7 +120,7 @@ mtcars %>>%
 
 ## Debugging
 
-Another way to use side effect is debugging. If you want to go into debugging mode in the middle of a pipeline to inspect the environment interactively, you only have to insert `browser()` as a side-effect expression after the line you want to break.
+Another way to use side effect is debugging, which is more flexible than violently stopping the pipeline and gives you a chance to see what happens. If you want to go into debugging mode in the middle of a pipeline to inspect the environment interactively, you only have to insert `browser()` as a side-effect expression after the line you want to break.
 
 For example, 
 
@@ -170,4 +180,4 @@ mtcars %>>%
   (~ browser(expr = .$r.squared < 0.8))
 ```
 
-If the $$R^2$$ of the linear model is less than 0.8, the evaluation will pause and wait for browser. You can adjust the threashold at anytime to any value you think indicating a problem.
+If the $$R^2$$ of the linear model is less than 0.8, the evaluation will pause and wait for browser. You can adjust the threshold at anytime to any value you think indicating a problem.
