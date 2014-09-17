@@ -173,6 +173,35 @@ mtcars %>>%
 #  Max.   :33.90   Max.   :6.000   Max.   :3.460
 ```
 
+## Stopping
+
+
+```r
+mtcars %>>% 
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  lm(formula = mpg ~ cyl + wt) %>>%
+  (~ stopifnot(summary(.)$r.squared >= 0.5)) %>>%
+  predict(newdata = list(cyl = 4.5, wt  = 3.0))
+```
+
+```
+#        1 
+# 22.34311
+```
+
+
+```r
+mtcars %>>% 
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  lm(formula = mpg ~ cyl + wt) %>>%
+  (~ stopifnot(summary(.)$r.squared >= 0.8)) %>>%
+  predict(newdata = list(cyl = 4.5, wt  = 3.0))
+```
+
+```
+# Error: summary(.)$r.squared >= 0.8 is not TRUE
+```
+
 ## Debugging
 
 Another way to use side effect is debugging. If you want to go into debugging mode in the middle of a pipeline to inspect the environment interactively, you only have to insert `browser()` as a side-effect expression after the line you want to break.
