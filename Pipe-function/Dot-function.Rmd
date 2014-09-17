@@ -6,9 +6,11 @@ library(pipeR)
 
 # Dot function
 
-As we have mentioned above, not all functions are pipe-friendly. While `%>>%` accepts `{}` and `()` on the right side, `Pipe` object provides `.()` to perform exactly the same set of features with `x %>>% (...)`.
+As we have mentioned earlier, not all functions are pipe-friendly. While `%>>%` accepts `{}` and `()` on the right side, `Pipe` object provides `.()` to perform exactly the same set of features with `x %>>% (...)` which is powerful enough to meet a wide variety of demands in piping.
 
 ## Pipe to dot
+
+If you supply an ordinary function call in `.()` it will evaluate it with `.` being the piped value.
 
 ```{r}
 Pipe(mtcars)$
@@ -17,6 +19,8 @@ Pipe(mtcars)$
 
 ## Pipe by formula
 
+To avoid ambiguity, one can write a formula in `.()` to define the symbol representing `mtcars`.
+
 ```{r}
 Pipe(mtcars)$
   .(df ~ lm(mpg ~ cyl + wt, data = df))
@@ -24,14 +28,19 @@ Pipe(mtcars)$
 
 ## Pipe for side effect
 
+The syntax of one-sided formula is also interpreted as side effect in `.()`.
+
 ```{r}
 Pipe(mtcars)$
   subset(mpg >= quantile(mpg, 0.05) & mpg <= quantile(mpg, 0.95),
     c(mpg, cyl, wt))$
   .(~ cat("rows:",nrow(.),"\n"))$
-  summary()
+  lm(formula = mpg ~ .)$
+  summary()$
+  coef()
 ```
 
+The question mark works too.
 
 ```{r}
 Pipe(mtcars)$
@@ -41,6 +50,7 @@ Pipe(mtcars)$
   summary()
 ```
 
+The debugging function `browser()` works exactly the same.
 
 ```r
 mtcars %>>% 
@@ -52,6 +62,8 @@ mtcars %>>%
 
 ## Pipe with assignment
 
+As we have previously mentioned that assignment may be the most important side effect so it deserves a syntax. One-sided formula with a symbol on the right indicates the input value should be assigned to that symbol. The syntax works in `.()` too.
+
 ```{r}
 pmodel <- Pipe(mtcars)$
   subset(select = c(mpg, wt, cyl))$
@@ -61,23 +73,35 @@ pmodel <- Pipe(mtcars)$
 summary(sub_mtcars)
 ```
 
-```{r}
-pmodel$predict(list(wt = 3.5, cyl = 7.5))
-```
-
 Note that `=` in function argument will be interpreted as argument selection, therefore `=` cannot be used to assign value in `.()` function.
 
-The way to perform assignment is to use `<-` or `->` introduced by pipeR v0.5 like the following:
+The way to perform side-effect assignment is to use `<-` or `->` introduced by pipeR v0.5 with `~`, like the following:
 
-```r
+```{r}
 Pipe(mtcars)$
-  .(~ summary(.) -> summ)
-  
-Pipe(mtcars)$
-  .(~ summ <- summary(.))
+  lm(formula = mpg ~ wt + cyl)$
+  .(~ summary(.) -> summ)$
+  coef()
+
+summ$r.squared
 ```
 
+If `~` in is removed, the assignment will be done and the value of `summary()` will go on piping.
+
+```{r}
+Pipe(mtcars)$
+  lm(formula = mpg ~ wt + cyl)$
+  .(summary(.) -> summ)$
+  coef()
+
+summ$r.squared
+```
+
+Note that the output of two `Pipe`s are different. The `Pipe` with `~ summary(.)` results in a numeric vector of the coeffecients of the linear model because the summary is only a side effect while the `Pipe` without `~` results in a comprehensive matrix showing the summary of the linear coefficients because `coef()` works on the summary.
+
 ## Extract element
+
+Element extraction also works in `.()` if a symbol name is supplied.
 
 ```{r}
 Pipe(mtcars)$
