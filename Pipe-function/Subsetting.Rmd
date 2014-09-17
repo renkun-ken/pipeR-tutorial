@@ -1,12 +1,116 @@
 ```{r knitsetup, echo=FALSE, results='hide', warning=FALSE, message=FALSE, cache=FALSE}
 opts_knit$set(base.dir='./', fig.path='', out.format='md')
 opts_chunk$set(prompt=FALSE, comment='#', fig.align = 'center', results='markup')
+library(pipeR)
 ```
 
 # Subsetting
 
+`Pipe` object supports direct subsetting using `[]`, element extraction using `[[]]`, and element assignment using `<-`. The operation is done with the value in `Pipe` rather than `Pipe` itself.
+
 ## Using `[]`
+
+Traditionally, `[]` is used to subset a vector or list. `Pipe` object implements `[]` too so that you can directly subset the inner value without breaking the `Pipe`.
+
+```{r}
+Pipe(list(a=1,b=2,c=3))[c("a","b")]
+
+Pipe(mtcars)[c("mpg","cyl","wt")]$
+  head()
+```
+
+Note that the value after subsetting is still a `Pipe` containing the subsetted value to allow further piping. 
+
+In fact, it does not only supports simple subsetting operations on vectors and lists, it also supports complex and highly customized subsetting such as subsetting a `data.table`.
+
+```{r}
+library(data.table)
+set.seed(0)
+dt <- data.table(id = 1:6, x = rnorm(6), y = rep(letters[1:3]), key = "id")
+dt
+Pipe(dt)[1:3] # select by row index
+Pipe(dt)[J(3)] # join by key
+Pipe(dt)[, sum(x), by = list(y)] # group sum
+Pipe(dt)[, z := x^2+1] # reference mutate
+```
+
+The important thing here is that using `Pipe()` you can enjoy smooth piping experience and don't have to worry interruptions by subsetting like them. Therefore, you can enjoy the smoking performance of `data.table` with pipeline operations even though it is not by designed pipe-friendly.
+
+For example, first we convert `mtcars` to `data.table` and put its row names into a new columns called `name` which is set as key. Since the output is a `Pipe` object containing the `data.table`, we name it `pmtcars` to remind ourselves it is a `Pipe` rather than an ordinary object.
+
+```{r}
+pmtcars <- Pipe(mtcars)$
+  .(~ rownames(.) -> row_names)$
+  as.data.table()[, name := row_names]$
+  setkey(name)
+```
+
+We can subset it with `[]` as we showed. Remember, being a `Pipe` object means we can use `$` to pipe its inner value forward.
+
+```{r}
+pmtcars[mpg >= quantile(mpg,0.05)]$
+  lm(formula = mpg ~ wt + cyl)$
+  summary()$
+  coef()
+```
+
+One thing to notice is that `[]` is evaluated with `.` representing the value in `Pipe`, which makes it easier to use by avoiding redundant references to the value many times.
+
+Traditionally, if we want to move out the last entry from a vector, we have to somehow compute its length.
+
+```{r}
+mtcars$mpg[-length(mtcars$mpg)]
+```
+
+Using `Pipe()` the code can be rewritten as 
+
+```{r}
+Pipe(mtcars$mpg)[-length(.)]
+```
+
 
 ## Using `[[]]`
 
+Just like `[]`, `[[]]` also behaves according to the same design logic. It extracts an element from vector, list, and environment.
+
+```{r}
+Pipe(mtcars)[["mpg"]]$
+  summary()
+```
+
+If you prefer not to use element extraction like this, there are various alternative ways to do exactly the same thing.
+
+```r
+# work wiht vector, list, environment, S4 objects.
+Pipe(mtcars)$
+  .(mpg)$
+  summary()
+  
+# work with list, environment.
+Pipe(mtcars)$
+  .(summary(.$mpg))
+
+# work with list, environment.
+Pipe(mtcars)$
+  with(summary(mpg))
+```
+
+All the above work and do the same thing. In practice, different approaches may result in different degrees of readability. You have to choose by your preference.
+
 ## Assigning values to elements
+
+In addition to subsetting and extracting, `Pipe` object also supports element assignment including element assignment (`$<-` and `[[<-`) and subset assignment (`[<-`).
+
+```{r}
+lst <- Pipe(list(a=1,b=2))
+lst
+lst$a <- 2
+lst
+lst[["b"]] <- NULL
+lst
+lst$c <- 1:3
+lst
+lst[c("a","c")] <- list(1:3, 2:5)
+lst
+```
+
