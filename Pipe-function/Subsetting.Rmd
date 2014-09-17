@@ -81,7 +81,7 @@ Pipe(mtcars)[["mpg"]]$
 If you prefer not to use element extraction like this, there are various alternative ways to do exactly the same thing.
 
 ```r
-# work wiht vector, list, environment, S4 objects.
+# work with vector, list, environment, S4 objects.
 Pipe(mtcars)$
   .(mpg)$
   summary()
