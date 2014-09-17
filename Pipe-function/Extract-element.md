@@ -1,5 +1,0 @@
-
-
-# Extract element
-
-Extract element
