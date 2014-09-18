@@ -4,5 +4,7 @@
 log/
 *.R
 *.Rproj
+*.Rhistory
+*.Rprofile
 .rmdbuild
 *.local
