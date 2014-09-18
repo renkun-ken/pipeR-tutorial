@@ -23,7 +23,7 @@ Note that the value after subsetting is still a `Pipe` containing the subsetted 
 
 In fact, it does not only supports simple subsetting operations on vectors and lists, it also supports complex and highly customized subsetting such as subsetting a `data.table`.
 
-```{r}
+```{r, message=FALSE}
 library(data.table)
 set.seed(0)
 dt <- data.table(id = 1:6, x = rnorm(6), y = rep(letters[1:3]), key = "id")

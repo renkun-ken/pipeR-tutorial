@@ -73,9 +73,6 @@ Pipe(dt)[1:3] # select by row index
 # 1:  1  1.2629543 a
 # 2:  2 -0.3262334 b
 # 3:  3  1.3297993 c
-# 4:  4  1.2724293 a
-# 5:  5  0.4146414 b
-# 6:  6 -1.5399500 c
 ```
 
 ```r
@@ -83,7 +80,10 @@ Pipe(dt)[J(3)] # join by key
 ```
 
 ```
-# Error: could not find function "J"
+# $value : data.table data.frame 
+# ------
+#    id        x y
+# 1:  3 1.329799 c
 ```
 
 ```r
@@ -91,7 +91,12 @@ Pipe(dt)[, sum(x), by = list(y)] # group sum
 ```
 
 ```
-# Error: object 'x' not found
+# $value : data.table data.frame 
+# ------
+#    y          V1
+# 1: a  2.53538361
+# 2: b  0.08840807
+# 3: c -0.21015078
 ```
 
 ```r
@@ -99,9 +104,15 @@ Pipe(dt)[, z := x^2+1] # reference mutate
 ```
 
 ```
-# Error: Check that is.data.table(DT) == TRUE. Otherwise, := and `:=`(...)
-# are defined for use in j, once only and in particular ways. See
-# help(":=").
+# $value : data.table data.frame 
+# ------
+#    id          x y        z
+# 1:  1  1.2629543 a 2.595054
+# 2:  2 -0.3262334 b 1.106428
+# 3:  3  1.3297993 c 2.768366
+# 4:  4  1.2724293 a 2.619076
+# 5:  5  0.4146414 b 1.171928
+# 6:  6 -1.5399500 c 3.371446
 ```
 
 The important thing here is that using `Pipe()` you can enjoy smooth piping experience and don't have to worry interruptions by subsetting like them. Therefore, you can enjoy the smoking performance of `data.table` with pipeline operations even though it is not by designed pipe-friendly.
@@ -116,12 +127,6 @@ pmtcars <- Pipe(mtcars)$
   setkey(name)
 ```
 
-```
-# Error: Check that is.data.table(DT) == TRUE. Otherwise, := and `:=`(...)
-# are defined for use in j, once only and in particular ways. See
-# help(":=").
-```
-
 We can subset it with `[]` as we showed. Remember, being a `Pipe` object means we can use `$` to pipe its inner value forward.
 
 
@@ -133,7 +138,12 @@ pmtcars[mpg >= quantile(mpg,0.05)]$
 ```
 
 ```
-# Error: object 'pmtcars' not found
+# $value : matrix 
+# ------
+#              Estimate Std. Error   t value     Pr(>|t|)
+# (Intercept) 39.588655  1.9265380 20.549117 5.120990e-18
+# wt          -3.116321  0.9806530 -3.177802 3.699456e-03
+# cyl         -1.527428  0.4584528 -3.331701 2.510788e-03
 ```
 
 One thing to notice is that `[]` is evaluated with `.` representing the value in `Pipe`, which makes it easier to use by avoiding redundant references to the value many times.
@@ -187,7 +197,7 @@ Pipe(mtcars)[["mpg"]]$
 If you prefer not to use element extraction like this, there are various alternative ways to do exactly the same thing.
 
 ```r
-# work wiht vector, list, environment, S4 objects.
+# work with vector, list, environment, S4 objects.
 Pipe(mtcars)$
   .(mpg)$
   summary()
