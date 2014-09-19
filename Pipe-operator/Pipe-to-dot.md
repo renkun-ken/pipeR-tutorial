@@ -113,6 +113,10 @@ It should be obvious that `.` below `par()` belong to the first `%>>%` that work
 
 ## Creating closure
 
+The expression will be evaluated with speically defined `.` if it is enclosed by `{}` or `()`. If an anonymous function, that is, a function definition without a name, is enclosed, the pipeline will result in a closure, a function returned by a function (`%>>%`) which can be used more times.
+
+In the following example, we create a closure that takes one argument: the kernel method with which to perform the nonparametric density estimation of resampled `mtcars$mpg`.
+
 
 ```r
 density_plot <- mtcars$mpg %>>%
@@ -122,7 +126,12 @@ density_plot <- mtcars$mpg %>>%
       density(kernel = kernel) %>>%
       plot(main = sprintf("%s kernel", kernel))
   })
+```
 
+We just create a closure called `density_plot`. Then we can call it with different kernels to see the differece between the density plots of each other.
+
+
+```r
 par(mfrow=c(1,3))
 density_plot("gaussian")
 density_plot("rectangular")
@@ -131,7 +140,18 @@ density_plot("triangular")
 
 <img src="figure/create-closure.png" title="plot of chunk create-closure" alt="plot of chunk create-closure" style="display: block; margin: auto;" />
 
-## Calling anonymous function
+However, if the enclosed function is called directly in the pipeline, `%>>%` will pipe the left value to its first argument because here the only difference between first-argument piping examples and this example is the function no longer has a name but created inline.
+
+
+```r
+1:10 %>>% (function(x,pow) x^pow)(2)
+```
+
+```
+#  [1]   1   4   9  16  25  36  49  64  81 100
+```
+
+A more complicated example is 
 
 
 ```r
@@ -154,3 +174,4 @@ mtcars %>>%
 #   39.686261   -3.190972   -1.507795
 ```
 
+where an anonymous function is defined inline and `%>>%` following `lm()` pipes the linear model to the first argument of the anonymous function.
