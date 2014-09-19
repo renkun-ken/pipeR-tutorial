@@ -109,3 +109,19 @@ Pipe(mtcars)$
   summary()$
   .(r.squared)
 ```
+
+## Dot function as closure
+
+Note that `.()` is only defined within a `Pipe` object and is not an exported function in pipeR, you cannot directly call `.()` outside a `Pipe()`. 
+
+In fact, if you are familiar with functional programming, it is called a *closure*, which is basically defined as a function returned by a function. However, you can save `.()` in a `Pipe` object to a symbol as a shortcut to call it elsewhere.
+
+```{r}
+model <- Pipe(mtcars)$
+  lm(formula = mpg ~ wt + cyl)$
+  .
+
+model()
+model(coefficients)
+model()$summary()$coef()
+```

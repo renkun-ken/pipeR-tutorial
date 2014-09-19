@@ -213,3 +213,54 @@ Pipe(mtcars)$
 # ------
 # [1] 0.8302274
 ```
+
+## Dot function as closure
+
+Note that `.()` is only defined within a `Pipe` object and is not an exported function in pipeR, you cannot directly call `.()` outside a `Pipe()`. 
+
+In fact, if you are familiar with functional programming, it is called a *closure*, which is basically defined as a function returned by a function. However, you can save `.()` in a `Pipe` object to a symbol as a shortcut to call it elsewhere.
+
+
+```r
+model <- Pipe(mtcars)$
+  lm(formula = mpg ~ wt + cyl)$
+  .
+
+model()
+```
+
+```
+# $value : lm 
+# ------
+# 
+# Call:
+# lm(formula = mpg ~ wt + cyl, data = .)
+# 
+# Coefficients:
+# (Intercept)           wt          cyl  
+#      39.686       -3.191       -1.508
+```
+
+```r
+model(coefficients)
+```
+
+```
+# $value : numeric 
+# ------
+# (Intercept)          wt         cyl 
+#   39.686261   -3.190972   -1.507795
+```
+
+```r
+model()$summary()$coef()
+```
+
+```
+# $value : matrix 
+# ------
+#              Estimate Std. Error   t value     Pr(>|t|)
+# (Intercept) 39.686261  1.7149840 23.140893 3.043182e-20
+# wt          -3.190972  0.7569065 -4.215808 2.220200e-04
+# cyl         -1.507795  0.4146883 -3.635972 1.064282e-03
+```
