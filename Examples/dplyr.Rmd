@@ -5,5 +5,97 @@ opts_chunk$set(prompt=FALSE, comment='#', fig.align = 'center', results='markup'
 
 # dplyr
 
-dplyr
+[dplyr](https://github.com/hadley/dplyr) is the next iteration of [plyr](https://github.com/hadley/plyr) that is specialized for processing data frames with blazing high performance.
 
+It is by design pipe-friendly and imports `%>%` from magrittr. In this page, we demonstrate how we use pipeR's `%>>%` to work with dplyr and the `hflights` dataset.
+
+First, you need to install the packages:
+
+```r
+install.packages(c("dplyr","hflights"))
+```
+
+`hflights` is a dataset contains information about flights that departed Houston in 2011. In the description the author writes:
+
+> This dataset contains all flights departing from Houston airports IAH (George Bush Intercontinental) and HOU (Houston Hobby). The data comes from the Research and Innovation Technology Administration at the Bureau of Transporation statistics: http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0
+
+Having known what the data is all about, then we load the libraries and take a look at the structure of the data.
+
+```{r,message=FALSE}
+library(dplyr)
+library(pipeR)
+library(hflights) # install.packages("hflights")
+data(hflights)
+```
+
+```{r}
+str(hflights)
+```
+
+The data is tabular and very well fit in a data frame. Remarkably it has `r nrow(hflights)` rows which is much larger than small datasets like `mtcars`.
+
+Two columns in the data frame attracts our attention: `Distance` and `ActualElapsedTime`. If we divide `Distance` by `ActualElapsedTime` we can get the actual flight speed. Therefore, in this example, we use dplyr functions to transform the data in pipeline and see which carrier has faster flights.
+
+```{r barplot,fig.height=5, fig.width=10}
+hflights %>>% 
+  filter(Cancelled == 0) %>>%
+  mutate(speed = Distance / ActualElapsedTime) %>>%
+  (~ hflights2) %>>% # save to hflights2
+  group_by(UniqueCarrier) %>>%
+  summarize(mean_speed = mean(speed,na.rm = TRUE)) %>>%
+  arrange(desc(mean_speed)) %>>%
+  with(barplot(mean_speed,names.arg = UniqueCarrier,
+    main = "Average flight speed"))
+```
+
+The code is quite straightforward and almost close to plain English. In fact, one of the merits of dplyr is that it defines a domain specific language tailored for the needs in data manipulation. `filter()`, `mutate()`, `group_by()`, `summarize()`, and unused `select()` are all *verb* functions defined as chainable data commands.
+
+Since we only take the average flight speed for each carrier, the bar plot may be misleading without know their distributions. Therefore, we decide to draw a box plot that roughly show the quantiles and out-liers for each group.
+
+However, the original data is not suitable for `boxplot()` which accepts a list of numeric vectors to form various boxes. Here we use [reshape2](https://github.com/hadley/reshape) package to transform the long format to wide format, that is, cast the data frame with a long list of ungrouped observations to one in which a particular value of the observations are grouped by column and arranged in rows.
+
+We also use [rlist](http://renkun.me/rlist) to sort the data frame by column to make it easier to view the box plot.
+
+Note that in the previous example, we have already saved the data with `speed` column to `hflights2` so that we don't have to recompute it again.
+
+```{r boxplot-speed, fig.height=5, fig.width=10}
+library(reshape2)    # install.packages("reshape2")
+library(rlist)       # install.packages("rlist")
+hflights2 %>>% 
+  dcast(Year + Month + DayofMonth ~ UniqueCarrier,
+    value.var = "speed",fun.aggregate = mean) %>>%
+  subset(select = c(-1,-2,-3)) %>>%
+  (~ hflights3) %>>% # save the wide-format data
+  list.sort(desc(median(.,na.rm = TRUE))) %>>%
+  boxplot(main = "Boxplot of flight speed sorted by median")
+```
+
+Note that some carriers have stable speeds and others don't. To see it more clearly, we rearrange the columns by the standard deviation of each group.
+
+```{r boxplot-speed-sd, fig.height=5, fig.width=10}
+hflights3 %>>%
+  list.sort(sd(.,na.rm = TRUE)) %>>%
+  boxplot(main = "Boxplot of flight speed sorted by sd")
+```
+
+To build a better qualification standard, we can divide the mean by the standard deviation of the speed figures in each group.
+
+```{r boxplot-speed-msd, fig.height=5, fig.width=10}
+hflights3 %>>%
+  list.sort(desc(mean(.,na.rm = TRUE) / sd(.,na.rm = TRUE))) %>>%
+  boxplot(main = "Boxplot of flight speed sorted by mean/sd")
+```
+
+Note that for particular destination and origin, we can see which route is faster.
+
+```{r}
+hflights2 %>>%
+  dcast(Dest ~ Origin, mean, na.rm = TRUE, value.var = "speed") %>>%
+  na.omit %>>%
+  filter(HOU > IAH) %>>%
+  (Dest)
+```
+
+The above results are the destination to which departing from HOU is on average faster than from IAH.
+
+In your console, you can run the code above and reproduce the results by yourself. You can also run partial pipeline and see the intermediate results or you can insert some side effects to inspect the data.
