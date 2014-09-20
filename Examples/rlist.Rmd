@@ -1,8 +1,89 @@
 ```{r knitsetup, echo=FALSE, results='hide', warning=FALSE, message=FALSE, cache=FALSE}
 opts_knit$set(base.dir='./', fig.path='', out.format='md')
-opts_chunk$set(prompt=FALSE, comment='', results='markup')
+opts_chunk$set(prompt=FALSE, comment='#', fig.align = 'center', results='markup')
 ```
 
 # rlist
 
-rlist
+[rlist](http://renkun.me/rlist) is a set of tools for working with list objects. Its goal is to make it easier to work with lists by providing a wide range of functions on non-tabular data stored in them.
+
+Its design is very much like dplyr but rlist is focused at dealing with non-tabular data stored in JSON or YAML format which can be easily represented by list objects in R.
+
+In this example, we will get to know more about [Hadley Wickham](https://github.com/hadley)'s contribution to R community from JSON data retrieved with [GitHub API](https://api.github.com) using rlist and pipeR.
+
+```{r}
+library(pipeR)
+library(rlist) # devtools::install_github("rlist","renkun-ken")
+url <- "https://api.github.com/users/hadley/repos?per_page=100&page=%d"
+repos <- 1:2 %>>%
+  list.map(list.load(sprintf(url, .i),"json")) %>>%
+  list.ungroup
+```
+
+We have retrieved all the repositories of Hadley Wickham and put them into a list called `repos`. It includes rich information and can be fun to explore with. To know better about the data structure, visit [this page](https://api.github.com/users/hadley/repos) and you will get an impression on how the data is structured.
+
+First, let's see the main languages of the repositories.
+
+```{r}
+repos %>>%
+  list.table(language) %>>%
+  list.sort(desc(.))
+```
+
+It is not surprising that most repo's main language is R. Then we can build a much longer pipeline to show the mostly watched active repos. Here we regard the repos updated in the last 30 days as active.
+
+```{r most-watched-repos,fig.height=5,fig.width=12}
+repos %>>% 
+  list.update(updated_at = updated_at %>>% 
+      strptime("%Y-%m-%dT%H:%M:%SZ")) %>>%
+  list.filter(updated_at >= as.POSIXct(Sys.Date() - 30)) %>>%
+  (~ active_repos) %>>%
+  list.sort(desc(watchers)) %>>%
+  list.take(10) %>>%
+  list.select(name, watchers) %>>%
+  list.stack %>>%
+  (~ most_watched_repos) %>>%
+  with(
+    barplot(watchers,names.arg = name,
+      main = "Top 10 packages with most watchers (total: %d)" %>>%
+        sprintf(sum(watchers)))
+    )
+```
+
+Then we can use similar way to see repos mainly written in R with most forks. Note that in the previous code, we save the filtered results to `active_repos` for further use so that we don't have to transform the data every time.
+
+```{r most-fork-repos,fig.height=5,fig.width=14}
+active_repos %>>%
+  list.filter(language == "R") %>>%
+  list.sort(desc(forks)) %>>%
+  list.take(10) %>>%
+  list.select(name, forks) %>>%
+  list.stack %>>%
+  with(
+    barplot(forks,names.arg = name,
+      main = "Top 10 packages with most forks (total: %d)" %>>%
+        sprintf(sum(forks)))
+    )
+```
+
+We are also interested in the repos whose name contains *plot* or *vis*. Let's see what they are arranged by popularity measured in count of stargazers.
+
+```{r}
+repos %>>% 
+  list.filter(!fork) %>>%
+  list.filter(equal("plot", name, pattern = TRUE) | 
+      equal("vis", name, pattern = TRUE)) %>>%
+  list.sort(desc(stargazers_count)) %>>%
+  list.mapv(name)
+```
+
+If you don't know much about Hadley's repos and heard a repo that sounds like *player*, you can filter the names by fuzzy searching using soundex measurement provided by [stringdist](https://github.com/markvanderloo/stringdist).
+
+```{r}
+repos %>>% 
+  list.filter(!fork) %>>%
+  list.filter(equal("player", name, dist = 0, method = "soundex")) %>>%
+  list.mapv(name)
+```
+
+Now we know that package is actually spelled as *plyr*.
