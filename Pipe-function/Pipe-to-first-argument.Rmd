@@ -108,14 +108,25 @@ Note that we create a `Pipe` object from `mtcars` and filters it by lower and up
 
 ## Creating partial function
 
-```{r partial-function, fig.height=4}
+Since `$` gets a function for `Pipe` object for first-argument piping, the function can be saved for repetitive uses.
+
+For example, we resample `mtcars$mpg` and draws its density function estimated by Gaussian kernel method. Instead of directly plotting the graphics, we save `plot` in pipeline for further use.
+
+```{r}
 density_plot <- Pipe(mtcars$mpg)$
   sample(size = 10000, replace = TRUE)$
   density(kernel = "gaussian")$
   plot
+```
 
+The function is a partial function of built-in `plot()` because its contents are determined and only additional parameters of graphics are needed.
+
+```{r partial-function, fig.height=4}
 par(mfrow=c(1,2))
 density_plot(col = "blue", main = "blue points")
 density_plot(col = "gray", type = "o", main = "gray circles")
 ```
 
+Note that when the partial function is determined, all the steps before the function are already evaluated, which means that the random numbers will not change each time we call the partial function `density_plot()`.
+
+It is useful when we need to do something only with different parameters but with the same input to the first argument.

@@ -125,31 +125,6 @@ Pipe(mtcars$mpg)$
 
 <img src="figure/pipe-hist.png" title="plot of chunk pipe-hist" alt="plot of chunk pipe-hist" style="display: block; margin: auto;" />
 
-```
-# $value : histogram 
-# ------
-# $breaks
-# [1] 10 15 20 25 30 35
-# 
-# $counts
-# [1]  6 12  8  2  4
-# 
-# $density
-# [1] 0.0375 0.0750 0.0500 0.0125 0.0250
-# 
-# $mids
-# [1] 12.5 17.5 22.5 27.5 32.5
-# 
-# $xname
-# [1] "."
-# 
-# $equidist
-# [1] TRUE
-# 
-# attr(,"class")
-# [1] "histogram"
-```
-
 The output is no longer `NULL` but a new `Pipe` object consisting of a `histogram` object with a few elements indicating its properties. 
 
 All `Pipe` objects are printed with, by default, a header like `$value: class`. If you find it annoying, you can turn off the header by setting the option `Pipe.header` to `FALSE` with
@@ -200,13 +175,22 @@ Note that we create a `Pipe` object from `mtcars` and filters it by lower and up
 
 ## Creating partial function
 
+Since `$` gets a function for `Pipe` object for first-argument piping, the function can be saved for repetitive uses.
+
+For example, we resample `mtcars$mpg` and draws its density function estimated by Gaussian kernel method. Instead of directly plotting the graphics, we save `plot` in pipeline for further use.
+
 
 ```r
 density_plot <- Pipe(mtcars$mpg)$
   sample(size = 10000, replace = TRUE)$
   density(kernel = "gaussian")$
   plot
+```
 
+The function is a partial function of built-in `plot()` because its contents are determined and only additional parameters of graphics are needed.
+
+
+```r
 par(mfrow=c(1,2))
 density_plot(col = "blue", main = "blue points")
 density_plot(col = "gray", type = "o", main = "gray circles")
@@ -214,3 +198,6 @@ density_plot(col = "gray", type = "o", main = "gray circles")
 
 <img src="figure/partial-function.png" title="plot of chunk partial-function" alt="plot of chunk partial-function" style="display: block; margin: auto;" />
 
+Note that when the partial function is determined, all the steps before the function are already evaluated, which means that the random numbers will not change each time we call the partial function `density_plot()`.
+
+It is useful when we need to do something only with different parameters but with the same input to the first argument.
