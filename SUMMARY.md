@@ -16,6 +16,5 @@
     * [Subsetting](Pipe-function/Subsetting.md)
 * [Examples](Examples/README.md)
     * [dplyr](Examples/dplyr.md)
-    * [ggvis](Examples/ggvis.md)
     * [rlist](Examples/rlist.md)
     * [rvest](Examples/rvest.md)
