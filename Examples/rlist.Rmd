@@ -71,8 +71,7 @@ We are also interested in the repos whose name contains *plot* or *vis*. Let's s
 ```{r}
 repos %>>% 
   list.filter(!fork) %>>%
-  list.filter(equal("plot", name, pattern = TRUE) | 
-      equal("vis", name, pattern = TRUE)) %>>%
+  list.filter(equal("plot|vis", name, pattern = TRUE)) %>>%
   list.sort(desc(stargazers_count)) %>>%
   list.mapv(name)
 ```
