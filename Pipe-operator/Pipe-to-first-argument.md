@@ -15,8 +15,8 @@ summary(sample(diff(log(rnorm(100,mean = 10))),
 ```
 
 ```
-#       Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
-# -0.2799000 -0.0925100 -0.0024220  0.0002468  0.0925300  0.2164000
+#     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+# -0.39190 -0.08057  0.01266 -0.00184  0.09290  0.30080
 ```
 
 Note that `rnorm()`, `log()`, `diff()`, `sample()`, and `summary()` all take the data as the first argument. We can use `%>>%` to rewrite the code so that the process of data transformation is straightforward.
@@ -84,7 +84,7 @@ letters %>>%
 #  [1] "p" "j" "o" "x" "q" "e" "z" "u" "i" "l" "f" "a" "m"
 ```
 
-There are situations where one calls a function in a namespace with `::`. In this case, the call must end up with parentheses with or without parameters..
+There are situations where one calls a function in a namespace with `::`. In this case, the call must end up with parentheses with or without parameters.
 
 ```r
 mtcars$mpg %>>%
@@ -93,6 +93,16 @@ mtcars$mpg %>>%
 mtcars$mpg %>>%
   graphics::plot(col = "red")
 ```
+
+The same rule also applies when piping a value to a function in a list.
+
+```r
+functions <- list(average = function(x) mean(x))
+mtcars$mpg %>>% functions$average()
+mtcars$mpg %>>% functions[["average"]]()
+```
+
+In both cases above, `()` is necessary to make R expect the symbol before `()` to be a function, or otherwise `$` and `[[` themselves will be understandably regarded as *the* function we want to pipe value to.
 
 Notice that `%>>%` not only works between function calls, but also can be nested in function calls. For example,
 
@@ -146,7 +156,7 @@ mtcars %>>%
 # Error: cannot coerce class ""formula"" to a data.frame
 ```
 
-it will fail because `%>>%` is evaluating `lm(mtcars, mpg ~ cyl + wt)` which does not fulfil the expectation of the function. There are two ways to build pipeline with such kind of functions.
+it will fail because `%>>%` is evaluating `lm(mtcars, mpg ~ cyl + wt)` which does not fulfill the expectation of the function. There are two ways to build pipeline with such kind of functions.
 
 First, use named parameter to specify the formula.
 
@@ -174,6 +184,6 @@ lm(mtcars, formula = mpg ~ cyl + wt)
 
 and R's argument matching program decides that since the first argument in `lm()`'s definition `formula` is specified, the unnamed argument `mtcars` is regarded as specifying the second argument `data`, which is exactly what we want. Therefore, it works fine here.
 
-However, this trick only makes it easy for some functions but not all. Suppose a function that takes `data` as the third or fourth argument. In this case, you would have to explictly specify all previous arguments by name. If `data` argument follows `...`, the trick would not work at all.
+However, this trick only makes it easy for some functions but not all. Suppose a function that takes `data` as the third or fourth argument. In this case, you would have to explicitly specify all previous arguments by name. If `data` argument follows `...`, the trick would not work at all.
 
 Dot piping is designed for more flexible pipeline construction. It allows you to use `.` to represent the left-hand side value and put it anywhere you want in the next expression. The next page demonstrates its syntax and when it might be useful.
