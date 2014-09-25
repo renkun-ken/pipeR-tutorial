@@ -1,5 +1,5 @@
 {
-    "plugins": ["ga"],
+    "plugins": ["ga","katex","-mathjax"],
     "pluginsConfig": {
         "ga": {
             "token": "UA-47159422-1"
