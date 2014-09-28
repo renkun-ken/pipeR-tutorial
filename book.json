@@ -1,4 +1,7 @@
 {
+    "github": "https://github.com/renkun-ken/pipeR-tutorial",
+    "githubHost": "https://github.com/",
+
     "plugins": ["ga","katex","-mathjax"],
     "pluginsConfig": {
         "ga": {
