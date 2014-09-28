@@ -10,16 +10,9 @@ You can install the latest stable release (v0.4-2) from [CRAN](http://cran.r-pro
 install.packages("pipeR")
 ```
 
-or the latest mainstream development version (v0.4-3) from [GitHub](https://github.com/renkun-ken/pipeR) with `devtools`:
+or the latest development version (v0.5) from [GitHub](https://github.com/renkun-ken/pipeR) with `devtools`:
 
 ```r
 install.packages("devtools")
 devtools::install_github("pipeR","renkun-ken")
-```
-
-or even the next development version (v0.5) from [GitHub](https://github.com/renkun-ken/pipeR/tree/0.5) which has more exciting features:
-
-```r
-install.packages("devtools")
-devtools::install_github("pipeR","renkun-ken","0.5")
 ```
