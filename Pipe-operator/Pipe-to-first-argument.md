@@ -15,8 +15,8 @@ summary(sample(diff(log(rnorm(100,mean = 10))),
 ```
 
 ```
-#     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-# -0.39190 -0.08057  0.01266 -0.00184  0.09290  0.30080
+#       Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
+# -0.3013000 -0.0830800 -0.0116400 -0.0004926  0.0723500  0.2795000
 ```
 
 Note that `rnorm()`, `log()`, `diff()`, `sample()`, and `summary()` all take the data as the first argument. We can use `%>>%` to rewrite the code so that the process of data transformation is straightforward.
@@ -141,6 +141,36 @@ mtcars %>>%
 #  3rd Qu.:21.48   3rd Qu.:3.690  
 #  Max.   :30.40   Max.   :5.424
 ```
+
+One important thing to notice here is that pipeR does not support lazy evaluation on left value, that is, the left value will be evaluated immediately which cannot be substituted by the function on the right. One example that may be supposed to work but actually not is
+
+
+```r
+10000 %>>% 
+  replicate(rnorm(1000)) %>>%
+  system.time
+```
+
+```
+#    user  system elapsed 
+#       0       0       0
+```
+
+This is not equivalent to
+
+
+```r
+system.time(replicate(10000, rnorm(1000)))
+```
+
+```
+#    user  system elapsed 
+#    1.22    0.02    1.24
+```
+
+even if they actually cost almost the same time to compute. `system.time()` initiates a timing device when the evaluation starts. In this case however, the value on the left of `%>>%` is always evaluated *before* being put to the first argument of the function. That is why `system.time()` gets zero seconds because it only starts timing after the loop has finished! This is true for other functions that try to *compute on language*.
+
+Therefore, you should always make sure that the left value should be valid in its own before putting it before `%>>%`.
 
 In some other cases, the function is not very friendly to pipeline operation, that is, it does not take the data you transform through a pipeline as the first argument. One example is the linear model function `lm()`. This function take `formula` first and then `data`.
 
