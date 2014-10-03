@@ -14,5 +14,5 @@ or the latest development version from [GitHub](https://github.com/renkun-ken/pi
 
 ```r
 install.packages("devtools")
-devtools::install_github("pipeR","renkun-ken")
+devtools::install_github("renkun-ken/pipeR")
 ```
