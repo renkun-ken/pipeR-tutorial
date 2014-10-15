@@ -26,13 +26,13 @@ First, let's see the main languages of the repositories.
 ```r
 repos %>>%
   list.table(language) %>>%
-  list.sort(desc(.))
+  list.sort(-.)
 ```
 
 ```
 # language
 #          R JavaScript        C++          C       Ruby        TeX 
-#         81          6          5          3          3          3 
+#         82          6          5          3          3          3 
 #     Python      Rebol        CSS      Shell     Turing 
 #          2          2          1          1          1
 ```
@@ -46,7 +46,7 @@ repos %>>%
       strptime("%Y-%m-%dT%H:%M:%SZ")) %>>%
   list.filter(updated_at >= as.POSIXct(Sys.Date() - 30)) %>>%
   (~ active_repos) %>>%
-  list.sort(desc(watchers)) %>>%
+  list.sort(-watchers) %>>%
   list.take(10) %>>%
   list.select(name, watchers) %>>%
   list.stack %>>%
@@ -66,7 +66,7 @@ Then we can use similar way to see repos mainly written in R with most forks. No
 ```r
 active_repos %>>%
   list.filter(language == "R") %>>%
-  list.sort(desc(forks)) %>>%
+  list.sort(-forks) %>>%
   list.take(10) %>>%
   list.select(name, forks) %>>%
   list.stack %>>%
@@ -85,8 +85,8 @@ We are also interested in the repos whose name contains *plot* or *vis*. Let's s
 ```r
 repos %>>% 
   list.filter(!fork) %>>%
-  list.filter(equal("plot|vis", name, pattern = TRUE)) %>>%
-  list.sort(desc(stargazers_count)) %>>%
+  list.filter(grepl("plot|vis", name)) %>>%
+  list.sort(-stargazers_count) %>>%
   list.mapv(name)
 ```
 
@@ -103,7 +103,7 @@ If you don't know much about Hadley's repos and heard a repo that sounds like *p
 ```r
 repos %>>% 
   list.filter(!fork) %>>%
-  list.filter(equal("player", name, dist = 0, method = "soundex")) %>>%
+  list.filter(stringdist::stringdist("player", name, method = "soundex") == 0L) %>>%
   list.mapv(name)
 ```
 
