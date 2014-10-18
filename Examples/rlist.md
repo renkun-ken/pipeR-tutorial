@@ -12,15 +12,15 @@ In this example, we will get to know more about [Hadley Wickham](https://github.
 ```r
 library(pipeR)
 library(rlist) # devtools::install_github("rlist","renkun-ken")
-url <- "https://api.github.com/users/hadley/repos?per_page=100&page=%d"
-repos <- 1:2 %>>%
-  list.map(list.load(sprintf(url, .i),"json")) %>>%
+repos <- "https://api.github.com/users/hadley/repos?per_page=100&page=%d" %>>%
+  sprintf(1:2) %>>%
+  list.load("json") %>>%
   list.ungroup
 ```
 
 We have retrieved all the repositories of Hadley Wickham and put them into a list called `repos`. It includes rich information and can be fun to explore with. To know better about the data structure, visit [this page](https://api.github.com/users/hadley/repos) and you will get an impression on how the data is structured.
 
-First, let's see the main languages of the repositories.
+First, let's see the main languages of the repositories. 
 
 
 ```r
@@ -31,10 +31,10 @@ repos %>>%
 
 ```
 # language
-#          R JavaScript        C++          C       Ruby        TeX 
-#         82          6          5          3          3          3 
-#     Python      Rebol        CSS      Shell     Turing 
-#          2          2          1          1          1
+#          R       <NA> JavaScript        C++          C       Ruby 
+#         82         10          6          5          3          3 
+#        TeX     Python      Rebol        CSS      Shell     Turing 
+#          3          2          2          1          1          1
 ```
 
 It is not surprising that most repo's main language is R. Then we can build a much longer pipeline to show the mostly watched active repos. Here we regard the repos updated in the last 30 days as active.
@@ -58,7 +58,7 @@ repos %>>%
     )
 ```
 
-<img src="figure/most-watched-repos.png" title="plot of chunk most-watched-repos" alt="plot of chunk most-watched-repos" style="display: block; margin: auto;" />
+<img src="figure/most-watched-repos-1.png" title="plot of chunk most-watched-repos" alt="plot of chunk most-watched-repos" style="display: block; margin: auto;" />
 
 Then we can use similar way to see repos mainly written in R with most forks. Note that in the previous code, we save the filtered results to `active_repos` for further use so that we don't have to transform the data every time.
 
@@ -77,7 +77,7 @@ active_repos %>>%
     )
 ```
 
-<img src="figure/most-fork-repos.png" title="plot of chunk most-fork-repos" alt="plot of chunk most-fork-repos" style="display: block; margin: auto;" />
+<img src="figure/most-fork-repos-1.png" title="plot of chunk most-fork-repos" alt="plot of chunk most-fork-repos" style="display: block; margin: auto;" />
 
 We are also interested in the repos whose name contains *plot* or *vis*. Let's see what they are arranged by popularity measured in count of stargazers.
 

@@ -14,15 +14,15 @@ In this example, we will get to know more about [Hadley Wickham](https://github.
 ```{r}
 library(pipeR)
 library(rlist) # devtools::install_github("rlist","renkun-ken")
-url <- "https://api.github.com/users/hadley/repos?per_page=100&page=%d"
-repos <- 1:2 %>>%
-  list.map(list.load(sprintf(url, .i),"json")) %>>%
+repos <- "https://api.github.com/users/hadley/repos?per_page=100&page=%d" %>>%
+  sprintf(1:2) %>>%
+  list.load("json") %>>%
   list.ungroup
 ```
 
 We have retrieved all the repositories of Hadley Wickham and put them into a list called `repos`. It includes rich information and can be fun to explore with. To know better about the data structure, visit [this page](https://api.github.com/users/hadley/repos) and you will get an impression on how the data is structured.
 
-First, let's see the main languages of the repositories.
+First, let's see the main languages of the repositories. 
 
 ```{r}
 repos %>>%
