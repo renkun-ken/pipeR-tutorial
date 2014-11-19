@@ -17,7 +17,6 @@
 * [Pipeline](Pipeline/README.md)
     * [Argument-based pipeline](Pipeline/Argument.md)
     * [Expression-based pipeline](Pipeline/Expression.md)
-    * [Special symbols](Pipeline/Special-symbols.md)
 * [Examples](Examples/README.md)
     * [dplyr](Examples/dplyr.md)
     * [rlist](Examples/rlist.md)

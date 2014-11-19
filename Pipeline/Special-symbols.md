@@ -1,3 +1,0 @@
-
-
-# Special symbols
