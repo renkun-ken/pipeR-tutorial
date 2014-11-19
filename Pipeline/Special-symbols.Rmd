@@ -5,5 +5,4 @@ library(pipeR)
 set.seed(0)
 ```
 
-# Expression-based pipeline
-
+# Special symbols
