@@ -78,6 +78,37 @@ mtcars %>>%
   summary
 ```
 
+## String
+
+The latest development version supports a feature to easily print a string in the middle of a pipeline. This feature can be used to indicate the step in which R is working on. For example,
+
+```{r}
+mtcars %>>%
+  "Running linear model" %>>%
+  lm(formula = mpg ~ wt + cyl) %>>%
+  "Summarizing the model" %>>%
+  summary %>>%
+  coef
+```
+
+For computationally heavy steps, we can insert strings like above to indicate the working progress of the pipeline. The computation in the above example apparently does not deserve such indication, the usage for a larger dataset can be helpful.
+
+```r
+data(diamonds, package = "ggplot2")
+library(pipeR)
+library(dplyr)
+
+diamonds %>>%
+  "filtering data ..." %>>%
+  filter(carat >= quantile(carat, 0.05) & carat <= quantile(carat, 0.95)) %>>%
+  "selecting variables ..." %>>%
+  select(carat, price, depth) %>>%
+  "estimating linear model ..." %>>%
+  lm(formula = carat ~ price + depth) %>>%
+  "summarizing model ..." %>>%
+  summary
+```
+
 ## Question mark
 
 An easier way to print the intermediate value is to use `(? expr)` syntax like asking a question. This also supports formula as lambda expression.
@@ -89,6 +120,28 @@ mtcars %>>%
   (? data ~ ncol(data)) %>>%
   summary
 ```
+
+However, in some cases, the output can be confusing if the same expression is evaluated at multiple places. For example,
+
+```{r}
+mtcars %>>% 
+  (? nrow(.)) %>>%
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  (? nrow(.)) %>>%
+  lm(formula = mpg ~ cyl + wt)
+```
+
+`nrow(.)` is evaluated both before and after subsetting `mtcars`. The short example may not be the worst situation, but the ambiguity can be eliminated by adding a string before `?`.
+
+```{r}
+mtcars %>>% 
+  ("Raw data rows:" ? nrow(.)) %>>%
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  ("Filtered data rows:" ? nrow(.)) %>>%
+  lm(formula = mpg ~ cyl + wt)
+```
+
+In the modified version above, we label each question expression by a string so that the output only prints the label instead, which makes it clearer to see what is printed below the question.
 
 ## Stopping
 

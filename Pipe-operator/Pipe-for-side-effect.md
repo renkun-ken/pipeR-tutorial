@@ -13,7 +13,7 @@ For example, we draw a scatter plot and saves its returned value to `z`.
 z <- plot(mtcars$mpg)
 ```
 
-<img src="figure/simple-plot.png" title="plot of chunk simple-plot" alt="plot of chunk simple-plot" style="display: block; margin: auto;" />
+<img src="figure/simple-plot-1.png" title="plot of chunk simple-plot" alt="plot of chunk simple-plot" style="display: block; margin: auto;" />
 
 ```r
 z
@@ -73,7 +73,7 @@ mtcars %>>%
 ```
 
 ```
-# Error: argument 1 (type 'list') cannot be handled by 'cat'
+# Error in cat(list(...), file, sep, fill, labels, append): argument 1 (type 'list') cannot be handled by 'cat'
 ```
 
 If you look back at the correct code with the side effect syntax, you may find it more readable because you can easily distinguish side effect expressions with other lines.
@@ -91,7 +91,7 @@ mtcars %>>%
   summary()
 ```
 
-<img src="figure/side-effect-graphics.png" title="plot of chunk side-effect-graphics" alt="plot of chunk side-effect-graphics" style="display: block; margin: auto;" />
+<img src="figure/side-effect-graphics-1.png" title="plot of chunk side-effect-graphics" alt="plot of chunk side-effect-graphics" style="display: block; margin: auto;" />
 
 ```
 # 
@@ -143,6 +143,50 @@ mtcars %>>%
 #  Max.   :30.40   Max.   :8.000   Max.   :5.345
 ```
 
+## String
+
+The latest development version supports a feature to easily print a string in the middle of a pipeline. This feature can be used to indicate the step in which R is working on. For example,
+
+
+```r
+mtcars %>>%
+  "Running linear model" %>>%
+  lm(formula = mpg ~ wt + cyl) %>>%
+  "Summarizing the model" %>>%
+  summary %>>%
+  coef
+```
+
+```
+# Running linear model 
+# Summarizing the model
+```
+
+```
+#              Estimate Std. Error   t value     Pr(>|t|)
+# (Intercept) 39.686261  1.7149840 23.140893 3.043182e-20
+# wt          -3.190972  0.7569065 -4.215808 2.220200e-04
+# cyl         -1.507795  0.4146883 -3.635972 1.064282e-03
+```
+
+For computationally heavy steps, we can insert strings like above to indicate the working progress of the pipeline. The computation in the above example apparently does not deserve such indication, the usage for a larger dataset can be helpful.
+
+```r
+data(diamonds, package = "ggplot2")
+library(pipeR)
+library(dplyr)
+
+diamonds %>>%
+  "filtering data ..." %>>%
+  filter(carat >= quantile(carat, 0.05) & carat <= quantile(carat, 0.95)) %>>%
+  "selecting variables ..." %>>%
+  select(carat, price, depth) %>>%
+  "estimating linear model ..." %>>%
+  lm(formula = carat ~ price + depth) %>>%
+  "summarizing model ..." %>>%
+  summary
+```
+
 ## Question mark
 
 An easier way to print the intermediate value is to use `(? expr)` syntax like asking a question. This also supports formula as lambda expression.
@@ -172,6 +216,64 @@ mtcars %>>%
 #  3rd Qu.:29.62   3rd Qu.:5.500   3rd Qu.:3.209  
 #  Max.   :33.90   Max.   :6.000   Max.   :3.460
 ```
+
+However, in some cases, the output can be confusing if the same expression is evaluated at multiple places. For example,
+
+
+```r
+mtcars %>>% 
+  (? nrow(.)) %>>%
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  (? nrow(.)) %>>%
+  lm(formula = mpg ~ cyl + wt)
+```
+
+```
+# ? nrow(.)
+# [1] 32
+# ? nrow(.)
+# [1] 14
+```
+
+```
+# 
+# Call:
+# lm(formula = mpg ~ cyl + wt, data = .)
+# 
+# Coefficients:
+# (Intercept)          cyl           wt  
+#     42.6573      -0.6388      -5.8132
+```
+
+`nrow(.)` is evaluated both before and after subsetting `mtcars`. The short example may not be the worst situation, but the ambiguity can be eliminated by adding a string before `?`.
+
+
+```r
+mtcars %>>% 
+  ("Raw data rows:" ? nrow(.)) %>>%
+  subset(vs == 1, c(mpg, cyl, wt)) %>>%
+  ("Filtered data rows:" ? nrow(.)) %>>%
+  lm(formula = mpg ~ cyl + wt)
+```
+
+```
+# ? Raw data rows: 
+# [1] 32
+# ? Filtered data rows: 
+# [1] 14
+```
+
+```
+# 
+# Call:
+# lm(formula = mpg ~ cyl + wt, data = .)
+# 
+# Coefficients:
+# (Intercept)          cyl           wt  
+#     42.6573      -0.6388      -5.8132
+```
+
+In the modified version above, we label each question expression by a string so that the output only prints the label instead, which makes it clearer to see what is printed below the question.
 
 ## Stopping
 
