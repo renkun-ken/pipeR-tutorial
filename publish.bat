@@ -1,3 +1,4 @@
+@echo off
 rscript -e "Rgitbook::buildGitbook()"
 cd _book
 git init
