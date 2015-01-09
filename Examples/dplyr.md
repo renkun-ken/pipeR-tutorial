@@ -73,7 +73,7 @@ hflights %>>%
     main = "Average flight speed"))
 ```
 
-<img src="figure/barplot.png" title="plot of chunk barplot" alt="plot of chunk barplot" style="display: block; margin: auto;" />
+<img src="figure/barplot-1.png" title="plot of chunk barplot" alt="plot of chunk barplot" style="display: block; margin: auto;" />
 
 The code is quite straightforward and almost close to plain English. In fact, one of the merits of dplyr is that it defines a domain specific language tailored for the needs in data manipulation. `filter()`, `mutate()`, `group_by()`, `summarize()`, and unused `select()` are all *verb* functions defined as chainable data commands.
 
@@ -98,7 +98,12 @@ hflights2 %>>%
   boxplot(main = "Boxplot of flight speed sorted by median")
 ```
 
-<img src="figure/boxplot-speed.png" title="plot of chunk boxplot-speed" alt="plot of chunk boxplot-speed" style="display: block; margin: auto;" />
+```
+# Warning: desc() has been deprecated. Please use () to indicate descending
+# order. Example: list.sort(data, (count))
+```
+
+<img src="figure/boxplot-speed-1.png" title="plot of chunk boxplot-speed" alt="plot of chunk boxplot-speed" style="display: block; margin: auto;" />
 
 Note that some carriers have stable speeds and others don't. To see it more clearly, we rearrange the columns by the standard deviation of each group.
 
@@ -109,7 +114,7 @@ hflights3 %>>%
   boxplot(main = "Boxplot of flight speed sorted by sd")
 ```
 
-<img src="figure/boxplot-speed-sd.png" title="plot of chunk boxplot-speed-sd" alt="plot of chunk boxplot-speed-sd" style="display: block; margin: auto;" />
+<img src="figure/boxplot-speed-sd-1.png" title="plot of chunk boxplot-speed-sd" alt="plot of chunk boxplot-speed-sd" style="display: block; margin: auto;" />
 
 To build a better qualification standard, we can divide the mean by the standard deviation of the speed figures in each group.
 
@@ -120,7 +125,12 @@ hflights3 %>>%
   boxplot(main = "Boxplot of flight speed sorted by mean/sd")
 ```
 
-<img src="figure/boxplot-speed-msd.png" title="plot of chunk boxplot-speed-msd" alt="plot of chunk boxplot-speed-msd" style="display: block; margin: auto;" />
+```
+# Warning: desc() has been deprecated. Please use () to indicate descending
+# order. Example: list.sort(data, (count))
+```
+
+<img src="figure/boxplot-speed-msd-1.png" title="plot of chunk boxplot-speed-msd" alt="plot of chunk boxplot-speed-msd" style="display: block; margin: auto;" />
 
 Note that for particular destination and origin, we can see which route is faster.
 

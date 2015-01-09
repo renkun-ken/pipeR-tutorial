@@ -94,7 +94,7 @@ mtcars %>>% {
 }
 ```
 
-<img src="figure/multiline.png" title="plot of chunk multiline" alt="plot of chunk multiline" style="display: block; margin: auto;" />
+<img src="figure/multiline-1.png" title="plot of chunk multiline" alt="plot of chunk multiline" style="display: block; margin: auto;" />
 
 Another thing is that the meaning of nested dots are always determined by the working operator for that dot symbol. For example, the above code can be refined to
 
@@ -107,7 +107,7 @@ mtcars %>>% {
 }
 ```
 
-<img src="figure/nested_dots.png" title="plot of chunk nested_dots" alt="plot of chunk nested_dots" style="display: block; margin: auto;" />
+<img src="figure/nested_dots-1.png" title="plot of chunk nested_dots" alt="plot of chunk nested_dots" style="display: block; margin: auto;" />
 
 It should be obvious that `.` below `par()` belong to the first `%>>%` that works with `mtcars` while `.` in `length()` belong to the operator that works with `.$mpg` so that it can correctly show the length of `mpg` (32) rather than that of `mtcars` (11).
 
@@ -138,7 +138,7 @@ density_plot("rectangular")
 density_plot("triangular")
 ```
 
-<img src="figure/create-closure.png" title="plot of chunk create-closure" alt="plot of chunk create-closure" style="display: block; margin: auto;" />
+<img src="figure/create-closure-1.png" title="plot of chunk create-closure" alt="plot of chunk create-closure" style="display: block; margin: auto;" />
 
 However, if the enclosed function is called directly in the pipeline, `%>>%` will pipe the left value to its first argument because here the only difference between first-argument piping examples and this example is the function no longer has a name but created inline.
 

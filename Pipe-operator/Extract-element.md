@@ -66,7 +66,7 @@ y <- 2*x + rnorm(150)*0.5
 matplot(cbind(x,y),type = "l")
 ```
 
-<img src="figure/extract-s4.png" title="plot of chunk extract-s4" alt="plot of chunk extract-s4" style="display: block; margin: auto;" />
+<img src="figure/extract-s4-1.png" title="plot of chunk extract-s4" alt="plot of chunk extract-s4" style="display: block; margin: auto;" />
 
 Now given the data, we can perform an ADF test on the residues of linear model `lm(y ~ x + 0)`.
 
@@ -82,7 +82,8 @@ lm(y ~ x + 0) %>>%
 ```
 
 ```
-# Warning: p-value smaller than printed p-value
+# Warning in fUnitRoots::adfTest(., type = "nc"): p-value smaller than
+# printed p-value
 ```
 
 ```

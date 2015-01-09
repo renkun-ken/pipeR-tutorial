@@ -18,8 +18,7 @@ Pipe(rnorm(100, mean = 10))$
 ```
 
 ```
-# $value : summaryDefault table 
-# ------
+# <Pipe: summaryDefault table>
 #      Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 # -0.309500 -0.083720 -0.012360 -0.001854  0.071440  0.358400
 ```
@@ -74,8 +73,7 @@ Pipe(mtcars)$
 ```
 
 ```
-# $value : lm 
-# ------
+# <Pipe: lm>
 # 
 # Call:
 # lm(formula = mpg ~ wt + cyl, data = .)
@@ -113,7 +111,7 @@ Pipe(mtcars$mpg)$
   plot(col = "red", main = sprintf("mpg (%d obs.)", length(.)))
 ```
 
-<img src="figure/pipe-dot.png" title="plot of chunk pipe-dot" alt="plot of chunk pipe-dot" style="display: block; margin: auto;" />
+<img src="figure/pipe-dot-1.png" title="plot of chunk pipe-dot" alt="plot of chunk pipe-dot" style="display: block; margin: auto;" />
 
 You may notice that the previous `plot()` only produces graphics but the `NULL` value it returns are not explicitly printed. `Pipe` by design mutes `NULL` value as being printed. However, not all graphics functions return `NULL`. `hist()` is one example.
 
@@ -123,7 +121,7 @@ Pipe(mtcars$mpg)$
   hist(main = "distribution of mpg")
 ```
 
-<img src="figure/pipe-hist.png" title="plot of chunk pipe-hist" alt="plot of chunk pipe-hist" style="display: block; margin: auto;" />
+<img src="figure/pipe-hist-1.png" title="plot of chunk pipe-hist" alt="plot of chunk pipe-hist" style="display: block; margin: auto;" />
 
 The output is no longer `NULL` but a new `Pipe` object consisting of a `histogram` object with a few elements indicating its properties. 
 
@@ -148,8 +146,7 @@ pmtcars$
 ```
 
 ```
-# $value : numeric 
-# ------
+# <Pipe: numeric>
 # (Intercept)          wt         cyl 
 #   36.630834   -2.528175   -1.418216
 ```
@@ -162,8 +159,7 @@ pmtcars$
 ```
 
 ```
-# $value : matrix 
-# ------
+# <Pipe: matrix>
 #               Estimate Std. Error    t value     Pr(>|t|)
 # (Intercept) 33.4441378  6.8351140  4.8929890 5.453045e-05
 # wt          -2.8134666  0.9787605 -2.8745201 8.344557e-03
@@ -196,7 +192,7 @@ density_plot(col = "blue", main = "blue points")
 density_plot(col = "gray", type = "o", main = "gray circles")
 ```
 
-<img src="figure/partial-function.png" title="plot of chunk partial-function" alt="plot of chunk partial-function" style="display: block; margin: auto;" />
+<img src="figure/partial-function-1.png" title="plot of chunk partial-function" alt="plot of chunk partial-function" style="display: block; margin: auto;" />
 
 Note that when the partial function is determined, all the steps before the function are already evaluated, which means that the random numbers will not change each time we call the partial function `density_plot()`.
 

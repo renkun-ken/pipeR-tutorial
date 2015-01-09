@@ -70,7 +70,7 @@ mtcars$mpg %>>%
   plot(col="red", main=sprintf("number of points: %d",length(.)))
 ```
 
-<img src="figure/mtcars-with-title.png" title="plot of chunk mtcars-with-title" alt="plot of chunk mtcars-with-title" style="display: block; margin: auto;" />
+<img src="figure/mtcars-with-title-1.png" title="plot of chunk mtcars-with-title" alt="plot of chunk mtcars-with-title" style="display: block; margin: auto;" />
 
 Take a sample from the lower letters of half the population.
 
@@ -165,7 +165,7 @@ system.time(replicate(10000, rnorm(1000)))
 
 ```
 #    user  system elapsed 
-#    1.22    0.02    1.24
+#    1.11    0.03    1.14
 ```
 
 even if they actually cost almost the same time to compute. `system.time()` initiates a timing device when the evaluation starts. In this case however, the value on the left of `%>>%` is always evaluated *before* being put to the first argument of the function. That is why `system.time()` gets zero seconds because it only starts timing after the loop has finished! This is true for other functions that try to *compute on language*.
@@ -183,7 +183,7 @@ mtcars %>>%
 ```
 
 ```
-# Error: cannot coerce class ""formula"" to a data.frame
+# Error in as.data.frame.default(data): cannot coerce class ""formula"" to a data.frame
 ```
 
 it will fail because `%>>%` is evaluating `lm(mtcars, mpg ~ cyl + wt)` which does not fulfill the expectation of the function. There are two ways to build pipeline with such kind of functions.

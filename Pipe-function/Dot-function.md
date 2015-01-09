@@ -15,8 +15,7 @@ Pipe(mtcars)$
 ```
 
 ```
-# $value : lm 
-# ------
+# <Pipe: lm>
 # 
 # Call:
 # lm(formula = mpg ~ cyl + wt, data = .)
@@ -37,8 +36,7 @@ Pipe(mtcars)$
 ```
 
 ```
-# $value : lm 
-# ------
+# <Pipe: lm>
 # 
 # Call:
 # lm(formula = mpg ~ cyl + wt, data = df)
@@ -68,8 +66,7 @@ Pipe(mtcars)$
 ```
 
 ```
-# $value : matrix 
-# ------
+# <Pipe: matrix>
 #              Estimate Std. Error   t value     Pr(>|t|)
 # (Intercept) 36.630834  1.6127431 22.713372 3.299463e-18
 # cyl         -1.418216  0.3533452 -4.013684 4.783302e-04
@@ -95,8 +92,7 @@ Pipe(mtcars)$
 ```
 
 ```
-# $value : table 
-# ------
+# <Pipe: table>
 #       mpg             cyl              wt       
 #  Min.   :17.80   Min.   :4.000   Min.   :1.513  
 #  1st Qu.:21.40   1st Qu.:4.000   1st Qu.:2.001  
@@ -153,8 +149,7 @@ Pipe(mtcars)$
 ```
 
 ```
-# $value : numeric 
-# ------
+# <Pipe: numeric>
 # (Intercept)          wt         cyl 
 #   39.686261   -3.190972   -1.507795
 ```
@@ -178,8 +173,7 @@ Pipe(mtcars)$
 ```
 
 ```
-# $value : matrix 
-# ------
+# <Pipe: matrix>
 #              Estimate Std. Error   t value     Pr(>|t|)
 # (Intercept) 39.686261  1.7149840 23.140893 3.043182e-20
 # wt          -3.190972  0.7569065 -4.215808 2.220200e-04
@@ -209,8 +203,7 @@ Pipe(mtcars)$
 ```
 
 ```
-# $value : numeric 
-# ------
+# <Pipe: numeric>
 # [1] 0.8302274
 ```
 
@@ -230,8 +223,7 @@ model()
 ```
 
 ```
-# $value : lm 
-# ------
+# <Pipe: lm>
 # 
 # Call:
 # lm(formula = mpg ~ wt + cyl, data = .)
@@ -246,8 +238,7 @@ model(coefficients)
 ```
 
 ```
-# $value : numeric 
-# ------
+# <Pipe: numeric>
 # (Intercept)          wt         cyl 
 #   39.686261   -3.190972   -1.507795
 ```
@@ -257,8 +248,7 @@ model()$summary()$coef()
 ```
 
 ```
-# $value : matrix 
-# ------
+# <Pipe: matrix>
 #              Estimate Std. Error   t value     Pr(>|t|)
 # (Intercept) 39.686261  1.7149840 23.140893 3.043182e-20
 # wt          -3.190972  0.7569065 -4.215808 2.220200e-04

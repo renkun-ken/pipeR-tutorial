@@ -31,8 +31,8 @@ repos %>>%
 
 ```
 # language
-#          R       <NA> JavaScript        C++          C       Ruby 
-#         82         10          6          5          3          3 
+#          R       <NA> JavaScript          C        C++       Ruby 
+#         91         11          8          5          5          3 
 #        TeX     Python      Rebol        CSS      Shell     Turing 
 #          3          2          2          1          1          1
 ```
@@ -93,7 +93,7 @@ repos %>>%
 ```
 #  [1] "ggplot2"         "bigvis"          "boxplots-paper" 
 #  [4] "productplots"    "densityvis"      "lvplot"         
-#  [7] "ggplot2-bayarea" "bigvis-infovis"  "prodplotpaper"  
+#  [7] "bigvis-infovis"  "ggplot2-bayarea" "prodplotpaper"  
 # [10] "ggplot2-docs"    "vis-migration"   "imvisoned"
 ```
 
