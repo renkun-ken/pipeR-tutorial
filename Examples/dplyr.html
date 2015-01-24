@@ -1,0 +1,661 @@
+<!DOCTYPE HTML>
+<html lang="en-US" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=11; IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
+        <title>dplyr | pipeR Tutorial</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 1.5.0">
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+        
+    
+    
+    <link rel="next" href="../Examples/rlist.html" />
+    
+    
+    <link rel="prev" href="../Examples/README.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+<link rel="stylesheet" href="../gitbook/style.css">
+
+    
+    <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-katex/katex.min.css">
+    
+
+
+        
+    <div class="book" data-level="5.1" data-basepath=".." data-revision="1422058247268">
+    
+
+<div class="book-summary">
+    <div class="book-search">
+        <input type="text" placeholder="Type to search" class="form-control" />
+    </div>
+    <ul class="summary">
+        
+    	
+    	
+    	
+
+        
+
+        
+    
+        
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                        <i class="fa fa-check"></i>
+                        
+                         Introduction
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="1" data-path="Getting-started/README.html">
+            
+                
+                    <a href="../Getting-started/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                         Getting started
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        
+        <li class="chapter " data-level="1.1" data-path="Getting-started/First-example.html">
+            
+                
+                    <a href="../Getting-started/First-example.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.1.</b>
+                        
+                         First example
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="1.2" data-path="Getting-started/Design-principles.html">
+            
+                
+                    <a href="../Getting-started/Design-principles.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.2.</b>
+                        
+                         Design principles
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2" data-path="Pipe-operator/README.html">
+            
+                
+                    <a href="../Pipe-operator/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                         Pipe operator
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        
+        <li class="chapter " data-level="2.1" data-path="Pipe-operator/Pipe-to-first-argument.html">
+            
+                
+                    <a href="../Pipe-operator/Pipe-to-first-argument.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.1.</b>
+                        
+                         Pipe to first-argument
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2.2" data-path="Pipe-operator/Pipe-to-dot.html">
+            
+                
+                    <a href="../Pipe-operator/Pipe-to-dot.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.2.</b>
+                        
+                         Pipe to dot
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2.3" data-path="Pipe-operator/Pipe-by-formula.html">
+            
+                
+                    <a href="../Pipe-operator/Pipe-by-formula.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.3.</b>
+                        
+                         Pipe by formula
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2.4" data-path="Pipe-operator/Pipe-for-side-effect.html">
+            
+                
+                    <a href="../Pipe-operator/Pipe-for-side-effect.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.4.</b>
+                        
+                         Pipe for side effect
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2.5" data-path="Pipe-operator/Pipe-with-assignment.html">
+            
+                
+                    <a href="../Pipe-operator/Pipe-with-assignment.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.5.</b>
+                        
+                         Pipe with assignment
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="2.6" data-path="Pipe-operator/Extract-element.html">
+            
+                
+                    <a href="../Pipe-operator/Extract-element.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.6.</b>
+                        
+                         Extract element
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="3" data-path="Pipe-function/README.html">
+            
+                
+                    <a href="../Pipe-function/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                         Pipe function
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        
+        <li class="chapter " data-level="3.1" data-path="Pipe-function/Pipe-to-first-argument.html">
+            
+                
+                    <a href="../Pipe-function/Pipe-to-first-argument.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.1.</b>
+                        
+                         Pipe to first-argument
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="3.2" data-path="Pipe-function/Dot-function.html">
+            
+                
+                    <a href="../Pipe-function/Dot-function.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.2.</b>
+                        
+                         Dot function
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="3.3" data-path="Pipe-function/Subsetting.html">
+            
+                
+                    <a href="../Pipe-function/Subsetting.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.3.</b>
+                        
+                         Subsetting
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="4" data-path="Pipeline/README.html">
+            
+                
+                    <a href="../Pipeline/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                         Pipeline
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        
+        <li class="chapter " data-level="4.1" data-path="Pipeline/Argument.html">
+            
+                
+                    <a href="../Pipeline/Argument.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.1.</b>
+                        
+                         Argument-based pipeline
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="4.2" data-path="Pipeline/Expression.html">
+            
+                
+                    <a href="../Pipeline/Expression.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.2.</b>
+                        
+                         Expression-based pipeline
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="5" data-path="Examples/README.html">
+            
+                
+                    <a href="../Examples/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                         Examples
+                    </a>
+                
+            
+            
+            <ul class="articles">
+                
+    
+        
+        <li class="chapter active" data-level="5.1" data-path="Examples/dplyr.html">
+            
+                
+                    <a href="../Examples/dplyr.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.1.</b>
+                        
+                         dplyr
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="5.2" data-path="Examples/rlist.html">
+            
+                
+                    <a href="../Examples/rlist.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.2.</b>
+                        
+                         rlist
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="5.3" data-path="Examples/rvest.html">
+            
+                
+                    <a href="../Examples/rvest.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.3.</b>
+                        
+                         rvest
+                    </a>
+                
+            
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+
+        
+        <li class="divider"></li>
+        <li>
+            <a href="http://www.gitbook.io/" target="blank" class="gitbook-link">Published using GitBook</a>
+        </li>
+        
+    </ul>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header">
+    <!-- Actions Left -->
+    <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
+    <a href="#" class="btn pull-left toggle-search" aria-label="Toggle search"><i class="fa fa-search"></i></a>
+    
+    <div id="font-settings-wrapper" class="dropdown pull-left">
+        <a href="#" class="btn toggle-dropdown" aria-label="Toggle font settings"><i class="fa fa-font"></i>
+        </a>
+        <div class="dropdown-menu font-settings">
+    <div class="dropdown-caret">
+        <span class="caret-outer"></span>
+        <span class="caret-inner"></span>
+    </div>
+
+    <div class="buttons">
+        <button type="button" id="reduce-font-size" class="button size-2">A</button>
+        <button type="button" id="enlarge-font-size" class="button size-2">A</button>
+    </div>
+
+    <div class="buttons font-family-list">
+        <button type="button" data-font="0" class="button">Serif</button>
+        <button type="button" data-font="1" class="button">Sans</button>
+    </div>
+
+    <div class="buttons color-theme-list">
+        <button type="button" id="color-theme-preview-0" class="button size-3" data-theme="0">White</button>
+        <button type="button" id="color-theme-preview-1" class="button size-3" data-theme="1">Sepia</button>
+        <button type="button" id="color-theme-preview-2" class="button size-3" data-theme="2">Night</button>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Actions Right -->
+    
+    <div class="dropdown pull-right">
+        <a href="#" class="btn toggle-dropdown" aria-label="Toggle share dropdown"><i class="fa fa-share-alt"></i>
+        </a>
+        <div class="dropdown-menu font-settings dropdown-left">
+            <div class="dropdown-caret">
+                <span class="caret-outer"></span>
+                <span class="caret-inner"></span>
+            </div>
+            <div class="buttons">
+                <button type="button" data-sharing="twitter" class="button">Twitter</button>
+                <button type="button" data-sharing="google-plus" class="button">Google</button>
+                <button type="button" data-sharing="facebook" class="button">Facebook</button>
+                <button type="button" data-sharing="weibo" class="button">Weibo</button>
+                <button type="button" data-sharing="instapaper" class="button">Instapaper</button>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <a href="#" target="_blank" class="btn pull-right google-plus-sharing-link sharing-link" data-sharing="google-plus" aria-label="Share on Google Plus"><i class="fa fa-google-plus"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right facebook-sharing-link sharing-link" data-sharing="facebook" aria-label="Share on Facebook"><i class="fa fa-facebook"></i></a>
+    
+    
+    <a href="#" target="_blank" class="btn pull-right twitter-sharing-link sharing-link" data-sharing="twitter" aria-label="Share on Twitter"><i class="fa fa-twitter"></i></a>
+    
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >pipeR Tutorial</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-gitbook_2">
+                    
+                        <h1 id="dplyr">dplyr</h1>
+<p><a href="https://github.com/hadley/dplyr" target="_blank">dplyr</a> is the next iteration of <a href="https://github.com/hadley/plyr" target="_blank">plyr</a> that is specialized for processing data frames with blazing high performance.</p>
+<p>It is by design pipe-friendly and imports <code>%&gt;%</code> from magrittr. In this page, we demonstrate how we use pipeR&apos;s <code>%&gt;&gt;%</code> to work with dplyr and the <code>hflights</code> dataset.</p>
+<p>First, you need to install the packages:</p>
+<pre><code class="lang-r">install.packages(c(<span class="hljs-string">&quot;dplyr&quot;</span>,<span class="hljs-string">&quot;hflights&quot;</span>))
+</code></pre>
+<p><code>hflights</code> is a dataset contains information about flights that departed Houston in 2011. In the description the author writes:</p>
+<blockquote>
+<p>This dataset contains all flights departing from Houston airports IAH (George Bush Intercontinental) and HOU (Houston Hobby). The data comes from the Research and Innovation Technology Administration at the Bureau of Transporation statistics: <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&amp;Link=0" target="_blank">http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&amp;Link=0</a></p>
+</blockquote>
+<p>Having known what the data is all about, then we load the libraries and take a look at the structure of the data.</p>
+<pre><code class="lang-r"><span class="hljs-keyword">library</span>(dplyr)
+<span class="hljs-keyword">library</span>(pipeR)
+<span class="hljs-keyword">library</span>(hflights) <span class="hljs-comment"># install.packages(&quot;hflights&quot;)</span>
+data(hflights)
+</code></pre>
+<pre><code class="lang-r">str(hflights)
+</code></pre>
+<pre><code># &apos;data.frame&apos;:    227496 obs. of  21 variables:
+#  $ Year             : int  2011 2011 2011 2011 2011 2011 2011 2011 2011 2011 ...
+#  $ Month            : int  1 1 1 1 1 1 1 1 1 1 ...
+#  $ DayofMonth       : int  1 2 3 4 5 6 7 8 9 10 ...
+#  $ DayOfWeek        : int  6 7 1 2 3 4 5 6 7 1 ...
+#  $ DepTime          : int  1400 1401 1352 1403 1405 1359 1359 1355 1443 1443 ...
+#  $ ArrTime          : int  1500 1501 1502 1513 1507 1503 1509 1454 1554 1553 ...
+#  $ UniqueCarrier    : chr  &quot;AA&quot; &quot;AA&quot; &quot;AA&quot; &quot;AA&quot; ...
+#  $ FlightNum        : int  428 428 428 428 428 428 428 428 428 428 ...
+#  $ TailNum          : chr  &quot;N576AA&quot; &quot;N557AA&quot; &quot;N541AA&quot; &quot;N403AA&quot; ...
+#  $ ActualElapsedTime: int  60 60 70 70 62 64 70 59 71 70 ...
+#  $ AirTime          : int  40 45 48 39 44 45 43 40 41 45 ...
+#  $ ArrDelay         : int  -10 -9 -8 3 -3 -7 -1 -16 44 43 ...
+#  $ DepDelay         : int  0 1 -8 3 5 -1 -1 -5 43 43 ...
+#  $ Origin           : chr  &quot;IAH&quot; &quot;IAH&quot; &quot;IAH&quot; &quot;IAH&quot; ...
+#  $ Dest             : chr  &quot;DFW&quot; &quot;DFW&quot; &quot;DFW&quot; &quot;DFW&quot; ...
+#  $ Distance         : int  224 224 224 224 224 224 224 224 224 224 ...
+#  $ TaxiIn           : int  7 6 5 9 9 6 12 7 8 6 ...
+#  $ TaxiOut          : int  13 9 17 22 9 13 15 12 22 19 ...
+#  $ Cancelled        : int  0 0 0 0 0 0 0 0 0 0 ...
+#  $ CancellationCode : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+#  $ Diverted         : int  0 0 0 0 0 0 0 0 0 0 ...
+</code></pre><p>The data is tabular and very well fit in a data frame. Remarkably it has 227496 rows which is much larger than small datasets like <code>mtcars</code>.</p>
+<p>Two columns in the data frame attracts our attention: <code>Distance</code> and <code>ActualElapsedTime</code>. If we divide <code>Distance</code> by <code>ActualElapsedTime</code> we can get the actual flight speed. Therefore, in this example, we use dplyr functions to transform the data in pipeline and see which carrier has faster flights.</p>
+<pre><code class="lang-r">hflights %&gt;&gt;% 
+  filter(Cancelled == <span class="hljs-number">0</span>) %&gt;&gt;%
+  mutate(speed = Distance / ActualElapsedTime) %&gt;&gt;%
+  (~ hflights2) %&gt;&gt;% <span class="hljs-comment"># save to hflights2</span>
+  group_by(UniqueCarrier) %&gt;&gt;%
+  summarize(mean_speed = mean(speed,na.rm = <span class="hljs-literal">TRUE</span>)) %&gt;&gt;%
+  arrange(desc(mean_speed)) %&gt;&gt;%
+  with(barplot(mean_speed,names.arg = UniqueCarrier,
+    main = <span class="hljs-string">&quot;Average flight speed&quot;</span>))
+</code></pre>
+<p><img src="figure/barplot-1.png" title="plot of chunk barplot" alt="plot of chunk barplot" style="display: block; margin: auto;"></p>
+<p>The code is quite straightforward and almost close to plain English. In fact, one of the merits of dplyr is that it defines a domain specific language tailored for the needs in data manipulation. <code>filter()</code>, <code>mutate()</code>, <code>group_by()</code>, <code>summarize()</code>, and unused <code>select()</code> are all <em>verb</em> functions defined as chainable data commands.</p>
+<p>Since we only take the average flight speed for each carrier, the bar plot may be misleading without know their distributions. Therefore, we decide to draw a box plot that roughly show the quantiles and out-liers for each group.</p>
+<p>However, the original data is not suitable for <code>boxplot()</code> which accepts a list of numeric vectors to form various boxes. Here we use <a href="https://github.com/hadley/reshape" target="_blank">reshape2</a> package to transform the long format to wide format, that is, cast the data frame with a long list of ungrouped observations to one in which a particular value of the observations are grouped by column and arranged in rows.</p>
+<p>We also use <a href="http://renkun.me/rlist" target="_blank">rlist</a> to sort the data frame by column to make it easier to view the box plot.</p>
+<p>Note that in the previous example, we have already saved the data with <code>speed</code> column to <code>hflights2</code> so that we don&apos;t have to recompute it again.</p>
+<pre><code class="lang-r"><span class="hljs-keyword">library</span>(reshape2)    <span class="hljs-comment"># install.packages(&quot;reshape2&quot;)</span>
+<span class="hljs-keyword">library</span>(rlist)       <span class="hljs-comment"># install.packages(&quot;rlist&quot;)</span>
+hflights2 %&gt;&gt;% 
+  dcast(Year + Month + DayofMonth ~ UniqueCarrier,
+    value.var = <span class="hljs-string">&quot;speed&quot;</span>,fun.aggregate = mean) %&gt;&gt;%
+  subset(select = c(-<span class="hljs-number">1</span>,-<span class="hljs-number">2</span>,-<span class="hljs-number">3</span>)) %&gt;&gt;%
+  (~ hflights3) %&gt;&gt;% <span class="hljs-comment"># save the wide-format data</span>
+  list.sort(desc(median(.,na.rm = <span class="hljs-literal">TRUE</span>))) %&gt;&gt;%
+  boxplot(main = <span class="hljs-string">&quot;Boxplot of flight speed sorted by median&quot;</span>)
+</code></pre>
+<pre><code># Warning: desc() has been deprecated. Please use () to indicate descending
+# order. Example: list.sort(data, (count))
+</code></pre><p><img src="figure/boxplot-speed-1.png" title="plot of chunk boxplot-speed" alt="plot of chunk boxplot-speed" style="display: block; margin: auto;"></p>
+<p>Note that some carriers have stable speeds and others don&apos;t. To see it more clearly, we rearrange the columns by the standard deviation of each group.</p>
+<pre><code class="lang-r">hflights3 %&gt;&gt;%
+  list.sort(sd(.,na.rm = <span class="hljs-literal">TRUE</span>)) %&gt;&gt;%
+  boxplot(main = <span class="hljs-string">&quot;Boxplot of flight speed sorted by sd&quot;</span>)
+</code></pre>
+<p><img src="figure/boxplot-speed-sd-1.png" title="plot of chunk boxplot-speed-sd" alt="plot of chunk boxplot-speed-sd" style="display: block; margin: auto;"></p>
+<p>To build a better qualification standard, we can divide the mean by the standard deviation of the speed figures in each group.</p>
+<pre><code class="lang-r">hflights3 %&gt;&gt;%
+  list.sort(desc(mean(.,na.rm = <span class="hljs-literal">TRUE</span>) / sd(.,na.rm = <span class="hljs-literal">TRUE</span>))) %&gt;&gt;%
+  boxplot(main = <span class="hljs-string">&quot;Boxplot of flight speed sorted by mean/sd&quot;</span>)
+</code></pre>
+<pre><code># Warning: desc() has been deprecated. Please use () to indicate descending
+# order. Example: list.sort(data, (count))
+</code></pre><p><img src="figure/boxplot-speed-msd-1.png" title="plot of chunk boxplot-speed-msd" alt="plot of chunk boxplot-speed-msd" style="display: block; margin: auto;"></p>
+<p>Note that for particular destination and origin, we can see which route is faster.</p>
+<pre><code class="lang-r">hflights2 %&gt;&gt;%
+  dcast(Dest ~ Origin, mean, na.rm = <span class="hljs-literal">TRUE</span>, value.var = <span class="hljs-string">&quot;speed&quot;</span>) %&gt;&gt;%
+  na.omit %&gt;&gt;%
+  filter(HOU &gt; IAH) %&gt;&gt;%
+  (Dest)
+</code></pre>
+<pre><code>#  [1] &quot;ABQ&quot; &quot;ATL&quot; &quot;AUS&quot; &quot;BHM&quot; &quot;BNA&quot; &quot;BWI&quot; &quot;CHS&quot; &quot;CRP&quot; &quot;DAL&quot; &quot;DEN&quot; &quot;DFW&quot;
+# [12] &quot;ELP&quot; &quot;EWR&quot; &quot;FLL&quot; &quot;GSP&quot; &quot;HRL&quot; &quot;JAN&quot; &quot;JAX&quot; &quot;LAS&quot; &quot;LAX&quot; &quot;LIT&quot; &quot;MAF&quot;
+# [23] &quot;MCI&quot; &quot;MCO&quot; &quot;MSY&quot; &quot;OKC&quot; &quot;PHL&quot; &quot;PHX&quot; &quot;SAN&quot; &quot;SAT&quot; &quot;STL&quot; &quot;TPA&quot; &quot;TUL&quot;
+</code></pre><p>The above results are the destination to which departing from HOU is on average faster than from IAH.</p>
+<p>In your console, you can run the code above and reproduce the results by yourself. You can also run partial pipeline and see the intermediate results or you can insert some side effects to inspect the data.</p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../Examples/README.html" class="navigation navigation-prev " aria-label="Previous page: Examples"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../Examples/rlist.html" class="navigation navigation-next " aria-label="Next page: rlist"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-ga/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"fontSettings":{"theme":null,"family":"sans","size":2},"ga":{"token":"UA-47159422-1","configuration":"auto"},"disqus":{"shortName":"renkun-ken"}};
+    gitbook.start(config);
+});
+</script>
+
+        <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-47159422-1', 'auto');ga('send', 'pageview');</script>
+    </body>
+    
+</html>
