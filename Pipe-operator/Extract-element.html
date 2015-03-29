@@ -40,7 +40,7 @@
     
 
         
-    <div class="book" data-level="2.6" data-basepath=".." data-revision="Sun Mar 29 2015 09:37:56 GMT+0800 (China Standard Time)">
+    <div class="book" data-level="2.6" data-basepath=".." data-revision="Sun Mar 29 2015 09:46:53 GMT+0800 (China Standard Time)">
     
 
 <div class="book-summary">
@@ -554,7 +554,8 @@ matplot(cbind(x,y),type = <span class="hljs-string">&quot;l&quot;</span>)
 # [1] &quot;fHTEST&quot;
 # attr(,&quot;package&quot;)
 # [1] &quot;fBasics&quot;
-</code></pre><pre><code># Error in getElement(x, as.character(expr)): could not find function &quot;slot&quot;
+</code></pre><pre><code># Dickey-Fuller 
+#     -10.08887
 </code></pre><p>Note that the result of <code>fUnitRoots::adfTest()</code> is a S4 object of class <code>fHTEST</code> which is assigned to <code>testobj</code>. The result of <code>(test)</code> is no longer a S4 object but an ordinary list. Therefore, there&apos;s no difference in the syntax of element extraction between S4 object and other objects that support <code>[[]]</code>.</p>
 <p>Since the syntax only accepts symbol name, to evaluate an expression with the piped object being the frame if it is a list or environment, using <code>with()</code> or <code>within()</code> can be helpful.</p>
 <pre><code class="lang-r">list(a = <span class="hljs-number">1</span>, b = <span class="hljs-number">2</span>) %&gt;&gt;%
