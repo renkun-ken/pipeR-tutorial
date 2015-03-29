@@ -1,14 +1,17 @@
 {
-    "github": "https://github.com/renkun-ken/pipeR-tutorial",
-    "githubHost": "https://github.com/",
-
-    "plugins": ["ga","katex","-mathjax"],
-    "pluginsConfig": {
-        "ga": {
-            "token": "UA-47159422-1"
-        },
-        "disqus": {
-            "shortName": "renkun-ken"
-        }
+  "gitbook": ">=2.0.0",
+  "title": "pipeR Tutorial",
+  "language": "en",
+  "plugins": ["ga", "katex"],
+  "pluginsConfig": {
+    "ga": {
+      "token": "UA-47159422-1"
     }
+  },
+  "links": {
+    "home": "http://renkun.me/pipeR-tutorial",
+    "about": "https://github.com/renkun-ken",
+    "issues": "https://github.com/renkun-ken/pipeR-tutorial/issues",
+    "edit": null
+  }
 }

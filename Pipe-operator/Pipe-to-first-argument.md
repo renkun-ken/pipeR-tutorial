@@ -165,7 +165,7 @@ system.time(replicate(10000, rnorm(1000)))
 
 ```
 #    user  system elapsed 
-#    1.11    0.03    1.14
+#    1.15    0.03    1.19
 ```
 
 even if they actually cost almost the same time to compute. `system.time()` initiates a timing device when the evaluation starts. In this case however, the value on the left of `%>>%` is always evaluated *before* being put to the first argument of the function. That is why `system.time()` gets zero seconds because it only starts timing after the loop has finished! This is true for other functions that try to *compute on language*.

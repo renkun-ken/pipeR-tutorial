@@ -98,11 +98,6 @@ hflights2 %>>%
   boxplot(main = "Boxplot of flight speed sorted by median")
 ```
 
-```
-# Warning: desc() has been deprecated. Please use () to indicate descending
-# order. Example: list.sort(data, (count))
-```
-
 <img src="figure/boxplot-speed-1.png" title="plot of chunk boxplot-speed" alt="plot of chunk boxplot-speed" style="display: block; margin: auto;" />
 
 Note that some carriers have stable speeds and others don't. To see it more clearly, we rearrange the columns by the standard deviation of each group.
@@ -123,11 +118,6 @@ To build a better qualification standard, we can divide the mean by the standard
 hflights3 %>>%
   list.sort(desc(mean(.,na.rm = TRUE) / sd(.,na.rm = TRUE))) %>>%
   boxplot(main = "Boxplot of flight speed sorted by mean/sd")
-```
-
-```
-# Warning: desc() has been deprecated. Please use () to indicate descending
-# order. Example: list.sort(data, (count))
 ```
 
 <img src="figure/boxplot-speed-msd-1.png" title="plot of chunk boxplot-speed-msd" alt="plot of chunk boxplot-speed-msd" style="display: block; margin: auto;" />

@@ -45,11 +45,35 @@ Pipe(url)$
 ```
 
 ```
-# 2015-01-09 19:29:16: downloading
+# 2015-03-29 09:02:30: downloading
+# number of packages: 6457
+# 2015-03-29 09:02:39: text extracted
+# 2015-03-29 09:02:41: task complete
 ```
 
 ```
-# Error in function (type, msg, asError = TRUE) : Could not resolve host: cran.r-project.org
+# <Pipe: array>
+# .
+#           data       analysis         models           with      functions 
+#            978            822            542            451            398 
+#     regression     estimation        package          model          using 
+#            340            311            301            289            273 
+#          tools          based           from       bayesian         linear 
+#            264            255            219            197            197 
+#        methods           time      interface   multivariate    statistical 
+#            189            184            182            147            137 
+#    generalized           test     clustering         series          tests 
+#            132            121            117            117            117 
+#      inference   distribution     statistics      selection         random 
+#            111            109            109            107            103 
+#      algorithm        spatial       multiple       modeling     simulation 
+#             99             99             95             94             91 
+#          mixed  distributions     likelihood         method      modelling 
+#             89             83             83             80             79 
+#        network         sparse         robust classification           sets 
+#             79             79             77             76             73 
+#        mixture       survival       sampling        effects           high 
+#             71             69             68             67             67
 ```
 
 As we have pointed out, the side effects use special syntax so it is easy to distinguish mainstream pipeline and side effect steps.

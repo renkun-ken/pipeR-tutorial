@@ -2,6 +2,7 @@
 opts_knit$set(base.dir='./', fig.path='', out.format='md')
 opts_chunk$set(prompt=FALSE, comment='#', fig.align = 'center', results='markup')
 library(pipeR)
+library(methods)
 ```
 
 # Extract element

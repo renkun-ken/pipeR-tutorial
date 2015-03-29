@@ -31,10 +31,12 @@ repos %>>%
 
 ```
 # language
-#          R       <NA> JavaScript          C        C++       Ruby 
-#         91         11          8          5          5          3 
-#        TeX     Python      Rebol        CSS      Shell     Turing 
-#          3          2          2          1          1          1
+#          R       <NA>        C++ JavaScript          C        TeX 
+#         95         13          9          8          6          5 
+#       Ruby      Shell       HTML     Python      Rebol        CSS 
+#          3          3          2          2          2          1 
+#     Turing 
+#          1
 ```
 
 It is not surprising that most repo's main language is R. Then we can build a much longer pipeline to show the mostly watched active repos. Here we regard the repos updated in the last 30 days as active.
@@ -91,10 +93,11 @@ repos %>>%
 ```
 
 ```
-#  [1] "ggplot2"         "bigvis"          "boxplots-paper" 
-#  [4] "productplots"    "densityvis"      "lvplot"         
-#  [7] "bigvis-infovis"  "ggplot2-bayarea" "prodplotpaper"  
-# [10] "ggplot2-docs"    "vis-migration"   "imvisoned"
+#  [1] "ggplot2"         "bigvis"          "ggplot2-book"   
+#  [4] "productplots"    "boxplots-paper"  "lvplot"         
+#  [7] "bigvis-infovis"  "densityvis"      "ggplot2-bayarea"
+# [10] "toc-vis"         "lvplot-paper"    "prodplotpaper"  
+# [13] "ggplot2-docs"    "vis-migration"   "imvisoned"
 ```
 
 If you don't know much about Hadley's repos and heard a repo that sounds like *player*, you can filter the names by fuzzy searching using soundex measurement provided by [stringdist](https://github.com/markvanderloo/stringdist).
